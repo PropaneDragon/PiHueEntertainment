@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+	<IS_LINUX>false</IS_LINUX>
+	<IS_WINDOWS Condition="">false</IS_WINDOWS>
+	
+	<IS_LINUX Condition="'$(Platform)'=='ARM'">true</IS_LINUX>
+	<IS_LINUX Condition="'$(Platform)'=='ARM64'">true</IS_LINUX>
+	
+	<IS_WINDOWS Condition="'$(IS_LINUX)'=='false'">true</IS_WINDOWS>
+	
+	<LIB_PRE></LIB_PRE>
+	<LIB_EXT>.lib</LIB_EXT>
+	<LIB_PRE Condition="'$(IS_LINUX)'=='true'">-l</LIB_PRE>
+	<LIB_EXT Condition="'$(IS_LINUX)'=='true'"></LIB_EXT>
+	<LIB_EXT_INC_D>d$(LIB_EXT)</LIB_EXT_INC_D>
+	<LIB_EXT_INC_D Condition="'$(IS_LINUX)'=='true'">$(LIB_EXT)</LIB_EXT_INC_D>
+	
+	<QT_VER>5.7</QT_VER>
+	<QT_VER_FULL>$(QT_VER).1</QT_VER_FULL>
+	
+	<DIR_QT>D:/Projects/Git/HEC/Qt/$(QT_VER)/msvc2015_64</DIR_QT>
+	<DIR_QT Condition="'$(IS_LINUX)'=='true'">/home/pi/projects/Qt/$(QT_VER)</DIR_QT>
+	
+	<QTDIR>$(DIR_QT)</QTDIR>
+	
+	<DIR_INC_QT>$(DIR_QT)/include</DIR_INC_QT>
+	<DIR_INC_QT_FULL>$(DIR_INC_QT);$(DIR_INC_QT)/QtGui;$(DIR_INC_QT)/QtWidgets;$(DIR_INC_QT)/QtQml;$(DIR_INC_QT)/QtCore;$(DIR_INC_QT)/QtQuickControls2;$(DIR_INC_QT)/QtMultimedia</DIR_INC_QT_FULL>
+	
+	<DIR_LIB_QT>$(DIR_QT)/lib</DIR_LIB_QT>
+	<DIR_LIB_QT Condition="'$(IS_LINUX)'=='true'">/usr/lib/arm-linux-gnueabihf</DIR_LIB_QT>
+	<DIR_LIB_QT_FULL>$(DIR_LIB_QT)</DIR_LIB_QT_FULL>
+	
+	<LIBS_QT_FULL>$(LIB_PRE)Qt5Widgets$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Gui$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Qml$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Core$(LIB_EXT_INC_D);$(LIB_PRE)Qt5QuickControls2$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Multimedia$(LIB_EXT_INC_D)</LIBS_QT_FULL>
+	
+    <DIR_EDK>D:/Projects/Git/HEC/EDK</DIR_EDK>
+    <DIR_EDK Condition="'$(IS_LINUX)'=='true'">/home/pi/projects/EDK</DIR_EDK>
+	
+    <DIR_EDK_THIRDPARTY>$(DIR_EDK)/3rd_party</DIR_EDK_THIRDPARTY>
+    <DIR_EDK_COMPILED>$(DIR_EDK)/build</DIR_EDK_COMPILED>
+	
+    <DIR_INC_HUESTREAM>$(DIR_EDK)/libhuestream</DIR_INC_HUESTREAM>
+    <DIR_INC_HUESTREAM_BRIDGEDISCOVERY>$(DIR_INC_HUESTREAM)/bridgediscovery/include</DIR_INC_HUESTREAM_BRIDGEDISCOVERY>
+    <DIR_INC_HUESTREAM_SUPPORT>$(DIR_INC_HUESTREAM)/support/include</DIR_INC_HUESTREAM_SUPPORT>
+    <DIR_INC_EDK_THIRDPARTY_EDTLS>$(DIR_EDK_THIRDPARTY)/edtls/libedtls</DIR_INC_EDK_THIRDPARTY_EDTLS>
+    <DIR_INC_EDK_THIRDPARTY_BOOST>$(DIR_EDK_THIRDPARTY)/boost/src</DIR_INC_EDK_THIRDPARTY_BOOST>
+	
+	<DIR_INC_EDK_FULL>$(DIR_INC_EDK_THIRDPARTY_EDTLS);$(DIR_INC_EDK_THIRDPARTY_BOOST);$(DIR_EDK_THIRDPARTY);$(DIR_INC_HUESTREAM_SUPPORT);$(DIR_INC_HUESTREAM_BRIDGEDISCOVERY);$(DIR_INC_HUESTREAM)</DIR_INC_EDK_FULL>
+	
+    <DIR_LIB_EDK>$(DIR_EDK_COMPILED)/bin</DIR_LIB_EDK>
+	<DIR_LIB_EDK_THIRDPARTY>$(DIR_EDK_COMPILED)/external_build/src</DIR_LIB_EDK_THIRDPARTY>
+	<DIR_LIB_EDK_THIRDPARTY_JSON>$(DIR_LIB_EDK_THIRDPARTY)/external_libjson-build</DIR_LIB_EDK_THIRDPARTY_JSON>
+	<DIR_LIB_EDK_THIRDPARTY_JSON Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_JSON)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_JSON>
+	<DIR_LIB_EDK_THIRDPARTY_EDTLS>$(DIR_LIB_EDK_THIRDPARTY)/external_edtls-build/libedtls/edtls/client</DIR_LIB_EDK_THIRDPARTY_EDTLS>
+	<DIR_LIB_EDK_THIRDPARTY_EDTLS Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_EDTLS)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_EDTLS>
+	<DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS>$(DIR_LIB_EDK_THIRDPARTY)/external_edtls-build/libedtls/edtls/wrapper/mbedtls</DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS>
+	<DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS>
+	<DIR_LIB_EDK_THIRDPARTY_CURL>$(DIR_LIB_EDK_THIRDPARTY)/external_curl-build/lib</DIR_LIB_EDK_THIRDPARTY_CURL>
+	<DIR_LIB_EDK_THIRDPARTY_CURL Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_CURL)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_CURL>
+	<DIR_LIB_EDK_THIRDPARTY_MBEDTLS>$(DIR_LIB_EDK_THIRDPARTY)/external_mbedtls-build/library</DIR_LIB_EDK_THIRDPARTY_MBEDTLS>
+	<DIR_LIB_EDK_THIRDPARTY_MBEDTLS Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_MBEDTLS)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_MBEDTLS>
+	<DIR_LIB_EDK_FULL>$(DIR_LIB_EDK);$(DIR_LIB_EDK_THIRDPARTY_JSON);$(DIR_LIB_EDK_THIRDPARTY_EDTLS);$(DIR_LIB_EDK_THIRDPARTY_EDTLSMBEDTLS);$(DIR_LIB_EDK_THIRDPARTY_CURL);$(DIR_LIB_EDK_THIRDPARTY_MBEDTLS)</DIR_LIB_EDK_FULL>
+	
+	<LIBS_EDK_CURL>curl</LIBS_EDK_CURL>
+	<LIBS_EDK_CURL Condition="'$(IS_WINDOWS)'=='true'">libcurl</LIBS_EDK_CURL>
+	<LIBS_EDK_FULL>$(LIB_PRE)bridge_discovery$(LIB_EXT);$(LIB_PRE)huestream$(LIB_EXT);$(LIB_PRE)support$(LIB_EXT);$(LIB_PRE)json$(LIB_EXT);$(LIB_PRE)edtls_client$(LIB_EXT);$(LIB_PRE)mbedcl_wrapper$(LIB_EXT);$(LIB_PRE)mbedx509$(LIB_EXT);$(LIB_PRE)mbedtls$(LIB_EXT);$(LIB_PRE)mbedcrypto$(LIB_EXT);$(LIB_PRE)$(LIBS_EDK_CURL)$(LIB_EXT)</LIBS_EDK_FULL>
+  </PropertyGroup>
+  
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(DIR_INC_EDK_FULL);$(DIR_INC_QT_FULL);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>	
+    <Link>
+      <AdditionalLibraryDirectories>$(DIR_LIB_EDK_FULL);$(DIR_LIB_QT_FULL);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(LIBS_EDK_FULL);$(LIBS_QT_FULL);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

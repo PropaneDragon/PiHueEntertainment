@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Hue\bridgeConnectionHandler.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\bridgeConnectionNotifier.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\cameraImageViewfinder.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\cameraCapture.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\startWindow.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\colour.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\colourGroup.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\colourArea.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Hue">
+      <UniqueIdentifier>{dc7b9c2b-187b-468b-b638-bace3df86b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hue\Header Files">
+      <UniqueIdentifier>{956cffcb-f9c5-49cc-ab96-0cbaafaa7fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hue\Source Files">
+      <UniqueIdentifier>{a478d3e7-1fad-4b6c-ad73-694400409e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Qt">
+      <UniqueIdentifier>{f5f46722-d5c8-44ef-b08a-6d29e6ac3406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Qt\Header Files">
+      <UniqueIdentifier>{84188961-486d-4ed6-a1a5-1cd15ebf9c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Qt\Generated">
+      <UniqueIdentifier>{c14480e9-0c81-41f3-b4ff-31ffa445f22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Qt\Source FIles">
+      <UniqueIdentifier>{3a7c71c1-927b-49d7-9e3d-938a9f7a5c6d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Hue\abstractBridgeConnectionNotifier.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\bridgeConnectionHandler.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\bridgeConnectionNotifier.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\startWindow.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\colour.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\colourGroup.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\colourArea.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Qt\cameraImageViewfinder.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Qt\cameraCapture.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>
