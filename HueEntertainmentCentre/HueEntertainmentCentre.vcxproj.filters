@@ -32,6 +32,9 @@
     <ClCompile Include="Hue\colourArea.cpp">
       <Filter>Qt\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Hue\area.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -82,6 +85,9 @@
       <Filter>Hue\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hue\colourArea.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\area.h">
       <Filter>Hue\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,7 +18,7 @@ void ColourGroup::addColour(const Colour &colour)
 	++_count;
 }
 
-Colour ColourGroup::getAverage() const
+Colour ColourGroup::getAverage()
 {
 	float averageRed = 0, averageGreen = 0, averageBlue = 0;
 
@@ -28,5 +28,17 @@ Colour ColourGroup::getAverage() const
 		averageBlue = _blue / _count;
 	}
 
-	return Colour(averageRed, averageGreen, averageBlue);
+	Colour average(averageRed, averageGreen, averageBlue);
+
+	auto differenceR = std::abs(average.getRed() - _lastAverage.getRed());
+	auto differenceG = std::abs(average.getGreen() - _lastAverage.getGreen());
+	auto differenceB = std::abs(average.getBlue() - _lastAverage.getBlue());
+
+	if (differenceR > _smoothingLevel || differenceG > _smoothingLevel || differenceB > _smoothingLevel) {
+
+		_lastAverage = average;
+		return average;
+	}
+
+	return _lastAverage;
 }

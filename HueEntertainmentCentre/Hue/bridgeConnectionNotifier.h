@@ -23,13 +23,11 @@ protected:
 	void startGroup(huestream::GroupPtr group, huestream::HueStreamPtr stream);
 
 private:
-	int _requestedGroupIndex = 0;
+	int _requestedGroupIndex = 2;
 	int _targetFramerate = 15;
-	float _smoothingLevel = 0.005;
 	QDateTime _lastRequestTime = QDateTime::currentDateTime();
-	Colour _lastColour;
 
 	QLabel *_updateImage = nullptr;
 
-	std::unique_ptr<CameraCapture> _capture = nullptr;
+	std::shared_ptr<CameraCapture> _capture = nullptr;
 };

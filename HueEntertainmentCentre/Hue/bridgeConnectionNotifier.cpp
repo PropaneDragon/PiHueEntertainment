@@ -9,6 +9,7 @@
 #include "huestream/effect/animation/animations/TweenAnimation.h";
 
 #include "colourGroup.h"
+#include "colourArea.h"
 #include "bridgeConnectionNotifier.h"
 
 BridgeConnectionNotifier::BridgeConnectionNotifier()
@@ -17,7 +18,7 @@ BridgeConnectionNotifier::BridgeConnectionNotifier()
 
 void BridgeConnectionNotifier::onBridgeConnected(huestream::HueStreamPtr stream, huestream::BridgePtr bridge)
 {
-	_capture = std::unique_ptr<CameraCapture>(new CameraCapture());
+	_capture = std::shared_ptr<CameraCapture>(new CameraCapture());
 
 	if (bridge && stream) {
 		std::cout << "Connected to bridge " + bridge->GetName() + " at IP " + bridge->GetIpAddress() + "." << std::endl;
@@ -94,35 +95,41 @@ void BridgeConnectionNotifier::startGroup(huestream::GroupPtr group, huestream::
 
 				if (!image.isNull()) {
 					auto size = image.size();
-					auto colours = ColourGroup();
+					auto areas = std::vector<ColourArea> {
+						ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
+						ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
+						ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
+					};
 
 					for (auto y = 0; y < size.height(); ++y) {
 						for (auto x = 0; x < size.width(); ++x) {
 							auto pixelColour = image.pixelColor(QPoint(x, y));
-							colours.addColour(pixelColour);
+
+							for (auto area : areas) {
+								if (area.pointIsInside(x, y)) {
+									area.getColourGroup()->addColour(pixelColour);
+								}
+								else {
+									int a = 0;
+								}
+							}
 						}
 					}
 
-					auto average = colours.getAverage();
+					stream->LockMixer();
 
-					auto differenceR = std::abs(average.getRed() - _lastColour.getRed());
-					auto differenceG = std::abs(average.getGreen() - _lastColour.getGreen());
-					auto differenceB = std::abs(average.getBlue() - _lastColour.getBlue());
-
-					if (differenceR > _smoothingLevel || differenceG > _smoothingLevel || differenceB > _smoothingLevel) {
+					for (auto area : areas) {
+						auto average = area.getColourGroup()->getAverage();
 						auto colour = average.hueColour();
 						auto effect = std::make_shared<huestream::AreaEffect>();
 
-						effect->SetArea(huestream::Area::All);
+						effect->SetAreas(std::make_shared<huestream::AreaList>(area.getAreas()));
 						effect->SetFixedColor(colour);
-
-						stream->LockMixer();
 						stream->AddEffect(effect);
 						effect->Enable();
-						stream->UnlockMixer();
 					}
 
-					_lastColour = average;
+					stream->UnlockMixer();
 
 					if (_updateImage) {
 						_updateImage->setPixmap(QPixmap::fromImage(image));

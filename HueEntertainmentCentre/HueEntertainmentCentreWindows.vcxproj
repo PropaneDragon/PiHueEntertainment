@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp" />
+    <ClCompile Include="Hue\area.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandler.cpp" />
     <ClCompile Include="Hue\bridgeConnectionNotifier.cpp" />
     <ClCompile Include="Hue\colour.cpp" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hue\abstractBridgeConnectionNotifier.h" />
+    <ClInclude Include="Hue\area.h" />
     <ClInclude Include="Hue\bridgeConnectionHandler.h" />
     <ClInclude Include="Hue\bridgeConnectionNotifier.h" />
     <ClInclude Include="Hue\colour.h" />
