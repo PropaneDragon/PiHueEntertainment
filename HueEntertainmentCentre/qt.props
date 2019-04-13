@@ -44,7 +44,7 @@
       <ExecutionDescription>Moc%27ing %(Identity)...</ExecutionDescription>
       <QTDIR>$(QTDIR)</QTDIR>
       <InputFile>%(FullPath)</InputFile>
-      <OutputFile>$(ProjectDir)GeneratedFiles\$(Configuration)\moc_%(Filename).cpp</OutputFile>
+      <OutputFile>$(ProjectDir)GeneratedFiles\moc_%(Filename).cpp</OutputFile>
       <DynamicSource>output</DynamicSource>
       <ParallelProcess>true</ParallelProcess>
       <CommandLineTemplate>[AllOptions] [AdditionalOptions]</CommandLineTemplate>

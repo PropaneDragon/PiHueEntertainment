@@ -35,6 +35,36 @@
     <ClCompile Include="Hue\area.cpp">
       <Filter>Hue\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\mainWindow.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\hueBridgeListModel.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\hubConnectDialog.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\qThreadLambda.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\entertainmentGroupConnectDialog.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\entertainmentGroupListModel.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -45,18 +75,25 @@
     </Filter>
     <Filter Include="Hue\Source Files">
       <UniqueIdentifier>{a478d3e7-1fad-4b6c-ad73-694400409e59}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
     </Filter>
     <Filter Include="Qt">
       <UniqueIdentifier>{f5f46722-d5c8-44ef-b08a-6d29e6ac3406}</UniqueIdentifier>
     </Filter>
     <Filter Include="Qt\Header Files">
       <UniqueIdentifier>{84188961-486d-4ed6-a1a5-1cd15ebf9c46}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
     </Filter>
     <Filter Include="Qt\Generated">
       <UniqueIdentifier>{c14480e9-0c81-41f3-b4ff-31ffa445f22e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Qt\Source FIles">
       <UniqueIdentifier>{3a7c71c1-927b-49d7-9e3d-938a9f7a5c6d}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
+    </Filter>
+    <Filter Include="Qt\UI Files">
+      <UniqueIdentifier>{62abdbda-ad93-46df-b824-48901230c8eb}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +121,27 @@
     <ClInclude Include="Hue\area.h">
       <Filter>Hue\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mainWindow.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\hueBridgeListModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_hubConnectDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\bridgeConnectionHandlerInstance.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\qThreadLambda.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\entertainmentGroupListModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Qt\cameraImageViewfinder.h">
@@ -92,5 +150,25 @@
     <QtMoc Include="Qt\cameraCapture.h">
       <Filter>Qt\Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Qt\hubConnectDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Qt\entertainmentGroupConnectDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Qt\mainWindow.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Qt\mainWindow.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
+    <QtUic Include="Qt\hubConnectDialog.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
+    <QtUic Include="Qt\entertainmentGroupConnectDialog.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

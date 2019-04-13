@@ -1,7 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include "huestream/common/data/Area.h"
-#include "../Qt/cameraCapture.h"
+#include "Qt/cameraCapture.h"
 
 #include "area.h"
 #include "colourGroup.h"
@@ -9,7 +11,7 @@
 class ColourArea
 {
 public:
-	ColourArea(std::shared_ptr<CameraCapture> capture, std::vector<huestream::Area> areas, const Area &coverage);
+	ColourArea(CameraCapture *capture, std::vector<huestream::Area> areas, const Area &coverage);
 
 	bool pointIsInside(int x, int y) const;
 

@@ -1,6 +1,6 @@
 #include "colourArea.h"
 
-ColourArea::ColourArea(std::shared_ptr<CameraCapture> capture, std::vector<huestream::Area> areas, const Area &coverage)
+ColourArea::ColourArea(CameraCapture *capture, std::vector<huestream::Area> areas, const Area &coverage)
 {
 	_coverage = coverage;
 	_expectedSize = capture->resolution();

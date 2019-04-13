@@ -127,8 +127,12 @@
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp" />
     <ClCompile Include="Hue\area.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandler.cpp" />
+    <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp" />
     <ClCompile Include="Hue\bridgeConnectionNotifier.cpp" />
     <ClCompile Include="Hue\colour.cpp" />
     <ClCompile Include="Hue\colourArea.cpp" />
@@ -136,19 +140,40 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Qt\cameraCapture.cpp" />
     <ClCompile Include="Qt\cameraImageViewfinder.cpp" />
+    <ClCompile Include="Qt\entertainmentGroupConnectDialog.cpp" />
+    <ClCompile Include="Qt\entertainmentGroupListModel.cpp" />
+    <ClCompile Include="Qt\hubConnectDialog.cpp" />
+    <ClCompile Include="Qt\hueBridgeListModel.cpp" />
+    <ClCompile Include="Qt\mainWindow.cpp" />
+    <ClCompile Include="Qt\qThreadLambda.cpp" />
     <ClCompile Include="Qt\startWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_hubConnectDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_mainWindow.h" />
     <ClInclude Include="Hue\abstractBridgeConnectionNotifier.h" />
     <ClInclude Include="Hue\area.h" />
     <ClInclude Include="Hue\bridgeConnectionHandler.h" />
+    <ClInclude Include="Hue\bridgeConnectionHandlerInstance.h" />
     <ClInclude Include="Hue\bridgeConnectionNotifier.h" />
     <ClInclude Include="Hue\colour.h" />
     <ClInclude Include="Hue\colourArea.h" />
     <ClInclude Include="Hue\colourGroup.h" />
+    <QtMoc Include="Qt\hubConnectDialog.h" />
+    <QtMoc Include="Qt\entertainmentGroupConnectDialog.h" />
+    <ClInclude Include="Qt\entertainmentGroupListModel.h" />
+    <ClInclude Include="Qt\hueBridgeListModel.h" />
+    <QtMoc Include="Qt\mainWindow.h" />
+    <ClInclude Include="Qt\qThreadLambda.h" />
     <ClInclude Include="Qt\startWindow.h" />
     <QtMoc Include="Qt\cameraCapture.h" />
     <QtMoc Include="Qt\cameraImageViewfinder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Qt\entertainmentGroupConnectDialog.ui" />
+    <QtUic Include="Qt\hubConnectDialog.ui" />
+    <QtUic Include="Qt\mainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

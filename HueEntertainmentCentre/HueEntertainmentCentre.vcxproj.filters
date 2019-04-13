@@ -35,6 +35,36 @@
     <ClCompile Include="Hue\area.cpp">
       <Filter>Hue\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\mainWindow.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\hueBridgeListModel.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\hubConnectDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp">
+      <Filter>Hue\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\qThreadLambda.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\entertainmentGroupConnectDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\entertainmentGroupListModel.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -42,21 +72,25 @@
     </Filter>
     <Filter Include="Hue\Header Files">
       <UniqueIdentifier>{0fcfd7b1-acd7-45be-937c-fa62f2f95415}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
     </Filter>
     <Filter Include="Hue\Source Files">
       <UniqueIdentifier>{becec488-ecea-4ab1-aae3-3a96d034d602}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
     </Filter>
     <Filter Include="Qt">
       <UniqueIdentifier>{d383e145-e2e7-4320-a8ef-7f3c6b774b47}</UniqueIdentifier>
     </Filter>
     <Filter Include="Qt\Source Files">
       <UniqueIdentifier>{d87b97d3-a1cf-4b3b-b058-cc7b89f15c4b}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
     </Filter>
     <Filter Include="Qt\Generated">
       <UniqueIdentifier>{a67f0e6f-c49d-49fa-8e20-a18769651f8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Qt\Header Files">
       <UniqueIdentifier>{79e24305-3b93-4a9c-b9e2-2c304f1d2cc3}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +123,36 @@
     </ClInclude>
     <ClInclude Include="Hue\area.h">
       <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mainWindow.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\mainWindow.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\hueBridgeListModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_hubConnectDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\hubConnectDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hue\bridgeConnectionHandlerInstance.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\qThreadLambda.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\entertainmentGroupConnectDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\entertainmentGroupListModel.h">
+      <Filter>Qt\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

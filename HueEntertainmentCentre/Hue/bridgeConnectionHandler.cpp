@@ -11,11 +11,9 @@ void BridgeConnectionHandler::setNotifier(std::shared_ptr<AbstractBridgeConnecti
 	_notifier = notifier;
 }
 
-bool BridgeConnectionHandler::tryConnect()
+void BridgeConnectionHandler::checkConnectionAndNotify()
 {
 	if (_stream) {
-		_stream->ConnectBridge();
-
 		auto activeBridge = _stream->GetActiveBridge();
 		auto connected = activeBridge != nullptr && activeBridge->IsConnected();
 
@@ -27,11 +25,30 @@ bool BridgeConnectionHandler::tryConnect()
 				_notifier->onBridgeConnectionFailed();
 			}
 		}
+	}
+}
+
+bool BridgeConnectionHandler::tryConnect()
+{
+	if (_stream) {
+		_stream->ConnectBridge();
+
+		auto activeBridge = _stream->GetActiveBridge();
+		auto connected = activeBridge != nullptr && activeBridge->IsConnected();
 
 		return connected;
 	}
 
 	return false;
+}
+
+bool BridgeConnectionHandler::tryConnectAndNotify()
+{
+	auto connected = tryConnect();
+
+	checkConnectionAndNotify();
+
+	return connected;
 }
 
 bool BridgeConnectionHandler::disconnect()
@@ -44,4 +61,24 @@ bool BridgeConnectionHandler::disconnect()
 	}
 
 	return false;
+}
+
+std::vector<std::shared_ptr<huestream::Bridge>> BridgeConnectionHandler::getAvailableBridges()
+{
+	std::vector<std::shared_ptr<huestream::Bridge>> bridges;
+	huestream::BridgeListPtr test;
+	huestream::BridgeList test2;
+
+	if (_stream) {
+
+		auto knownBridges = _stream->GetKnownBridges();
+		if (knownBridges) {
+
+			for (auto bridge : *knownBridges) {
+				bridges.push_back(bridge);
+			}
+		}
+	}
+
+	return bridges;
 }

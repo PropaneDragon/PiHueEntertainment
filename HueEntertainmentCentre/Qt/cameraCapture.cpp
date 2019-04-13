@@ -9,11 +9,15 @@
 
 #include "cameraCapture.h"
 
-CameraCapture::CameraCapture()
+CameraCapture::CameraCapture(QObject *parent) : QObject(parent)
 {
 	_viewfinder = new CameraImageViewfinder(_expectedResolution);
 
 	connect(_viewfinder, &CameraImageViewfinder::imageCaptured, this, &CameraCapture::imageCaptured);
+}
+
+CameraCapture::~CameraCapture()
+{
 }
 
 void CameraCapture::connectToDefaultCamera()

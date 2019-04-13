@@ -11,7 +11,8 @@ class CameraCapture : public QObject
 	Q_OBJECT;
 
 public:
-	CameraCapture();
+	CameraCapture(QObject *parent = nullptr);
+	~CameraCapture();
 
 	void connectToDefaultCamera();
 	void disconnectCamera();

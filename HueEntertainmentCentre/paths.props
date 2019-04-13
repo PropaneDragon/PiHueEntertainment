@@ -17,6 +17,12 @@
 	<LIB_EXT_INC_D>d$(LIB_EXT)</LIB_EXT_INC_D>
 	<LIB_EXT_INC_D Condition="'$(IS_LINUX)'=='true'">$(LIB_EXT)</LIB_EXT_INC_D>
 	
+	<DIR_ROOT>$(SolutionDir)</DIR_ROOT>
+	<DIR_ROOT Condition="'$(IS_LINUX)'=='true'">$(RemoteRootDir)</DIR_ROOT>
+	
+	<DIR_SOLUTION>$(DIR_ROOT)/$(SolutionName)</DIR_SOLUTION>
+	<DIR_INC_GENERATED>$(DIR_SOLUTION)/GeneratedFiles</DIR_INC_GENERATED>
+	
 	<QT_VER>5.7</QT_VER>
 	<QT_VER_FULL>$(QT_VER).1</QT_VER_FULL>
 	
@@ -69,7 +75,7 @@
   
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(DIR_INC_EDK_FULL);$(DIR_INC_QT_FULL);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DIR_INC_EDK_FULL);$(DIR_INC_QT_FULL);$(DIR_SOLUTION);$(DIR_INC_GENERATED);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>	
     <Link>
       <AdditionalLibraryDirectories>$(DIR_LIB_EDK_FULL);$(DIR_LIB_QT_FULL);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

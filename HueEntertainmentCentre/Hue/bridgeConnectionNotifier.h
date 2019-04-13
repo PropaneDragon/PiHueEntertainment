@@ -2,7 +2,7 @@
 
 #include <QDateTime>
 
-#include "../Qt/cameraCapture.h"
+#include "Qt/cameraCapture.h"
 
 #include "colour.h"
 #include "abstractBridgeConnectionNotifier.h"
@@ -13,21 +13,29 @@ class BridgeConnectionNotifier : public AbstractBridgeConnectionNotifier
 public:
 	BridgeConnectionNotifier();
 
-	virtual void onBridgeConnected(huestream::HueStreamPtr stream, huestream::BridgePtr bridge) override;
-	virtual void onBridgeDisconnected(huestream::BridgePtr bridge) override;
+	virtual void onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream, std::shared_ptr<huestream::Bridge> bridge) override;
+	virtual void onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge) override;
 	virtual void onBridgeConnectionFailed() override;
 
 	void setUpdateImage(QLabel *image);
+	void setTargetFramerate(int framesPerSecond);
+
+	int getTargetFramerate() const;
+
+	std::shared_ptr<huestream::Bridge> getHueBridge() const;
+	std::shared_ptr<huestream::IHueStream> getHueStream() const;
 
 protected:
-	void startGroup(huestream::GroupPtr group, huestream::HueStreamPtr stream);
+	void startGroup(std::shared_ptr<huestream::Group> group, std::shared_ptr<huestream::IHueStream> stream);
 
 private:
-	int _requestedGroupIndex = 2;
-	int _targetFramerate = 15;
-	QDateTime _lastRequestTime = QDateTime::currentDateTime();
+	int _requestedGroupIndex = 0;
+	int _targetFramerate = 10;
 
+	QDateTime _lastRequestTime = QDateTime::currentDateTime();
 	QLabel *_updateImage = nullptr;
 
 	std::shared_ptr<CameraCapture> _capture = nullptr;
+	std::shared_ptr<huestream::Bridge> _bridge = nullptr;
+	std::shared_ptr<huestream::IHueStream> _stream = nullptr;
 };

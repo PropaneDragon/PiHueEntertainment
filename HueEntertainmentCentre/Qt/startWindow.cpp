@@ -18,11 +18,9 @@ StartWindow::StartWindow(QWidget *parent, Qt::WindowFlags flags)
 
 void StartWindow::showEvent(QShowEvent *event)
 {
-	auto connectionHandler = new BridgeConnectionHandler("Pi Entertainment Centre");
+	auto connectionHandler = new BridgeConnectionHandler("Pi Camera Mirror");
 	auto connectionNotifier = std::shared_ptr<BridgeConnectionNotifier>(new BridgeConnectionNotifier());
 
 	connectionHandler->setNotifier(connectionNotifier);
 	connectionNotifier->setUpdateImage(_previewImage);
-
-	auto connected = connectionHandler->tryConnect();
 }

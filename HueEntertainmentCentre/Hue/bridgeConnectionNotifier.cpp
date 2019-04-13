@@ -16,11 +16,11 @@ BridgeConnectionNotifier::BridgeConnectionNotifier()
 {
 }
 
-void BridgeConnectionNotifier::onBridgeConnected(huestream::HueStreamPtr stream, huestream::BridgePtr bridge)
+void BridgeConnectionNotifier::onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream, std::shared_ptr<huestream::Bridge> bridge)
 {
 	_capture = std::shared_ptr<CameraCapture>(new CameraCapture());
 
-	if (bridge && stream) {
+	/*if (bridge && stream) {
 		std::cout << "Connected to bridge " + bridge->GetName() + " at IP " + bridge->GetIpAddress() + "." << std::endl;
 		
 		auto groups = bridge->GetGroups();
@@ -50,10 +50,10 @@ void BridgeConnectionNotifier::onBridgeConnected(huestream::HueStreamPtr stream,
 	}
 	else {
 		std::cout << "Connected to a null bridge or has a null stream" << std::endl;
-	}
+	}*/
 }
 
-void BridgeConnectionNotifier::onBridgeDisconnected(huestream::BridgePtr bridge)
+void BridgeConnectionNotifier::onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge)
 {
 	if (bridge) {
 		std::cout << "Disconnected from bridge " + bridge->GetName() << std::endl;
@@ -73,11 +73,29 @@ void BridgeConnectionNotifier::setUpdateImage(QLabel *image)
 	_updateImage = image;
 }
 
-void BridgeConnectionNotifier::startGroup(huestream::GroupPtr group, huestream::HueStreamPtr stream)
+void BridgeConnectionNotifier::setTargetFramerate(int framesPerSecond)
 {
-	std::cout << "Connecting to group " + group->GetName() + "." << std::endl;
+	_targetFramerate = framesPerSecond;
+}
 
-	stream->SelectGroup(group);
+int BridgeConnectionNotifier::getTargetFramerate() const
+{
+	return _targetFramerate;
+}
+
+std::shared_ptr<huestream::Bridge> BridgeConnectionNotifier::getHueBridge() const
+{
+	return _bridge;
+}
+
+std::shared_ptr<huestream::IHueStream> BridgeConnectionNotifier::getHueStream() const
+{
+	return _stream;
+}
+
+void BridgeConnectionNotifier::startGroup(std::shared_ptr<huestream::Group> group, std::shared_ptr<huestream::IHueStream> stream)
+{
+	/*stream->SelectGroup(group);
 
 	_capture->connectToDefaultCamera();
 
@@ -151,5 +169,5 @@ void BridgeConnectionNotifier::startGroup(huestream::GroupPtr group, huestream::
 		stream->UnlockMixer();
 	}
 
-	std::cout << "Connected!" << std::endl;
+	std::cout << "Connected!" << std::endl;*/
 }
