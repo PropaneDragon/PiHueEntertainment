@@ -100,7 +100,18 @@ void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
 void MainWindow::processImage(const QImage &image)
 {
 	if (!image.isNull() && _stream) {
-		auto size = image.size();
+
+		auto transformedImage = image;		
+		auto centre = transformedImage.rect().center();
+			
+		QMatrix rotationMatrix;
+		rotationMatrix.translate(centre.x(), centre.y());
+		rotationMatrix.rotate(_imageRotation);
+		rotationMatrix.scale(_imageFlippedVertically ? -1 : 1, _imageFlippedHorizontally ? -1 : 1);
+
+		transformedImage = transformedImage.transformed(rotationMatrix, Qt::TransformationMode::FastTransformation);
+
+		auto size = transformedImage.size();
 
 		std::vector<ColourArea> areas = {
 			ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
@@ -110,7 +121,7 @@ void MainWindow::processImage(const QImage &image)
 
 		for (auto y = 0; y < size.height(); ++y) {
 			for (auto x = 0; x < size.width(); ++x) {
-				auto pixelColour = image.pixelColor(QPoint(x, y));
+				auto pixelColour = transformedImage.pixelColor(QPoint(x, y));
 
 				for (auto area : areas) {
 					if (area.pointIsInside(x, y)) {
@@ -134,6 +145,10 @@ void MainWindow::processImage(const QImage &image)
 		}
 
 		_stream->UnlockMixer();
+
+		if (_imageAllowedToUpdate) {
+			label_cameraImage->setPixmap(QPixmap::fromImage(transformedImage));
+		}
 	}
 }
 
@@ -161,10 +176,6 @@ void MainWindow::captureTimerUpdated()
 			if (!image.isNull()) {
 
 				processImage(image);
-
-				if (_imageAllowedToUpdate) {
-					label_cameraImage->setPixmap(QPixmap::fromImage(image));
-				}
 			}
 		}
 	}
@@ -225,4 +236,39 @@ void MainWindow::disconnectFromCamera()
 void MainWindow::changeImageUpdatePreference(bool canUpdate)
 {
 	_imageAllowedToUpdate = canUpdate;
+}
+
+void MainWindow::rotateImageClockwise()
+{
+	rotateImage(90);
+}
+
+void MainWindow::rotateImageAntiClockwise()
+{
+	rotateImage(-90);
+}
+
+void MainWindow::flipImageHorizontal(bool flip)
+{
+	_imageFlippedHorizontally = flip;
+}
+
+void MainWindow::flipImageVertical(bool flip)
+{
+	_imageFlippedVertically = flip;
+}
+
+void MainWindow::rotateImage(int degrees)
+{
+	auto newRotation = _imageRotation + degrees;
+	
+	while (newRotation >= 360) {
+		newRotation -= 360;
+	}
+
+	while (newRotation < 0) {
+		newRotation += 360;
+	}
+
+	_imageRotation = newRotation;
 }

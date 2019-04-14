@@ -38,6 +38,8 @@ public:
     QAction *actionUpdate_image;
     QAction *actionRotate_90_clockwise;
     QAction *actionRotate_90_anti_clockwise;
+    QAction *actionFlip_horizontal;
+    QAction *actionFlip_vertical;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
@@ -89,10 +91,16 @@ public:
         actionUpdate_image->setChecked(true);
         actionRotate_90_clockwise = new QAction(MainWindow);
         actionRotate_90_clockwise->setObjectName(QStringLiteral("actionRotate_90_clockwise"));
-        actionRotate_90_clockwise->setEnabled(false);
+        actionRotate_90_clockwise->setEnabled(true);
         actionRotate_90_anti_clockwise = new QAction(MainWindow);
         actionRotate_90_anti_clockwise->setObjectName(QStringLiteral("actionRotate_90_anti_clockwise"));
-        actionRotate_90_anti_clockwise->setEnabled(false);
+        actionRotate_90_anti_clockwise->setEnabled(true);
+        actionFlip_horizontal = new QAction(MainWindow);
+        actionFlip_horizontal->setObjectName(QStringLiteral("actionFlip_horizontal"));
+        actionFlip_horizontal->setCheckable(true);
+        actionFlip_vertical = new QAction(MainWindow);
+        actionFlip_vertical->setObjectName(QStringLiteral("actionFlip_vertical"));
+        actionFlip_vertical->setCheckable(true);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -149,8 +157,12 @@ public:
         menuCamera->addSeparator();
         menuCamera->addAction(actionChangeCamera);
         menuDisplay->addAction(actionUpdate_image);
+        menuDisplay->addSeparator();
         menuDisplay->addAction(actionRotate_90_clockwise);
         menuDisplay->addAction(actionRotate_90_anti_clockwise);
+        menuDisplay->addSeparator();
+        menuDisplay->addAction(actionFlip_horizontal);
+        menuDisplay->addAction(actionFlip_vertical);
         menuSettings->addAction(actionOptions);
 
         retranslateUi(MainWindow);
@@ -162,6 +174,10 @@ public:
         QObject::connect(actionChangeHub, SIGNAL(triggered()), MainWindow, SLOT(connectToNewBridge()));
         QObject::connect(actionChangeCamera, SIGNAL(triggered()), MainWindow, SLOT(connectToNewCamera()));
         QObject::connect(actionUpdate_image, SIGNAL(toggled(bool)), MainWindow, SLOT(changeImageUpdatePreference(bool)));
+        QObject::connect(actionRotate_90_clockwise, SIGNAL(triggered()), MainWindow, SLOT(rotateImageClockwise()));
+        QObject::connect(actionRotate_90_anti_clockwise, SIGNAL(triggered()), MainWindow, SLOT(rotateImageAntiClockwise()));
+        QObject::connect(actionFlip_horizontal, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageHorizontal(bool)));
+        QObject::connect(actionFlip_vertical, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageVertical(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -180,6 +196,8 @@ public:
         actionUpdate_image->setText(QApplication::translate("MainWindow", "Update image", Q_NULLPTR));
         actionRotate_90_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 clockwise", Q_NULLPTR));
         actionRotate_90_anti_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 anti-clockwise", Q_NULLPTR));
+        actionFlip_horizontal->setText(QApplication::translate("MainWindow", "Flip horizontal", Q_NULLPTR));
+        actionFlip_vertical->setText(QApplication::translate("MainWindow", "Flip vertical", Q_NULLPTR));
         label_cameraImage->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHuib->setTitle(QApplication::translate("MainWindow", "Hub", Q_NULLPTR));

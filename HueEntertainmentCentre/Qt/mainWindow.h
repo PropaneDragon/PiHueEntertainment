@@ -43,12 +43,22 @@ protected slots:
 	void disconnectFromBridge();
 	void disconnectFromCamera();
 	void changeImageUpdatePreference(bool canUpdate);
+	void rotateImageClockwise();
+	void rotateImageAntiClockwise();
+	void flipImageHorizontal(bool flip);
+	void flipImageVertical(bool flip);
+
+protected:
+	void rotateImage(int degrees);
 
 private:
 	bool _connected = false;
 	bool _imageAllowedToUpdate = true;
+	bool _imageFlippedHorizontally = false;
+	bool _imageFlippedVertically = false;
 
 	int _targetFramerate = 10;
+	int _imageRotation = 0;
 
 	QDateTime _lastRequestTime = QDateTime::currentDateTime();
 

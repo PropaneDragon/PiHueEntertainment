@@ -116,8 +116,12 @@ QWidget {
      <string>Display</string>
     </property>
     <addaction name="actionUpdate_image"/>
+    <addaction name="separator"/>
     <addaction name="actionRotate_90_clockwise"/>
     <addaction name="actionRotate_90_anti_clockwise"/>
+    <addaction name="separator"/>
+    <addaction name="actionFlip_horizontal"/>
+    <addaction name="actionFlip_vertical"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -190,7 +194,7 @@ QWidget {
   </action>
   <action name="actionRotate_90_clockwise">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Rotate 90° clockwise</string>
@@ -198,10 +202,26 @@ QWidget {
   </action>
   <action name="actionRotate_90_anti_clockwise">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Rotate 90° anti-clockwise</string>
+   </property>
+  </action>
+  <action name="actionFlip_horizontal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Flip horizontal</string>
+   </property>
+  </action>
+  <action name="actionFlip_vertical">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Flip vertical</string>
    </property>
   </action>
  </widget>
@@ -335,6 +355,70 @@ QWidget {
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRotate_90_clockwise</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rotateImageClockwise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRotate_90_anti_clockwise</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rotateImageAntiClockwise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFlip_horizontal</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>flipImageHorizontal(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFlip_vertical</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>flipImageVertical(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>connectToNewBridge()</slot>
@@ -344,5 +428,9 @@ QWidget {
   <slot>connectToBridge()</slot>
   <slot>connectToCamera()</slot>
   <slot>changeImageUpdatePreference(bool)</slot>
+  <slot>rotateImageAntiClockwise()</slot>
+  <slot>rotateImageClockwise()</slot>
+  <slot>flipImageVertical(bool)</slot>
+  <slot>flipImageHorizontal(bool)</slot>
  </slots>
 </ui>
