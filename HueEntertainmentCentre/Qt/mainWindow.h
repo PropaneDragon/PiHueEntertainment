@@ -3,7 +3,8 @@
 #include <QMainWindow>
 #include <QDateTime>
 
-#include "../Hue/abstractBridgeConnectionNotifier.h"
+#include "Hue/abstractBridgeConnectionNotifier.h"
+#include "Hue/colourArea.h"
 
 #include "ui_mainWindow.h"
 
@@ -25,16 +26,22 @@ public:
 	MainWindow(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
 	void showEvent(QShowEvent *event) override;
+	void closeEvent(QCloseEvent *event) override;
 
 	void connectToBridge();
 	void onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream, std::shared_ptr<huestream::Bridge> bridge) override;
 	void onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge) override;
 	void onBridgeConnectionFailed() override;
+	void connectToCamera();
 	void connectToGroup(std::shared_ptr<huestream::Group> group);
 	void processImage(const QImage &image);
 
 protected slots:
 	void captureTimerUpdated();
+	void connectToNewBridge();
+	void connectToNewCamera();
+	void disconnectFromBridge();
+	void disconnectFromCamera();
 
 private:
 	bool _connected = false;

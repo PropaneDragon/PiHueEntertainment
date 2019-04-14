@@ -41,15 +41,17 @@ void MainWindow::showEvent(QShowEvent *event)
 	}
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+	disconnectFromBridge();
+	disconnectFromCamera();
+}
+
 void MainWindow::connectToBridge()
 {
-	if (!_connected) {
+	if (!_stream || !_stream->IsBridgeStreaming()) {
 		auto connectDialog = new HubConnectDialog(this);
 		auto result = (QDialog::DialogCode)connectDialog->exec();
-
-		if (result == QDialog::DialogCode::Accepted) {
-			_connected = true;
-		}
 	}
 }
 
@@ -60,12 +62,10 @@ void MainWindow::onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream
 	auto groups = bridge->GetGroups();
 	if (!groups || groups->size() <= 0) {
 		
-		auto selectedButton = QMessageBox::critical(this, "No entertainment groups found", "It appears that there are no entertainment groups set up on this hub.\n\nPlease make sure you have at least one entertainment group before connecting again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
+		auto selectedButton = QMessageBox::critical(this, "No entertainment areas found", "It appears that there are no entertainment areas set up on this hub.\n\nPlease make sure you have at least one entertainment area set up in the Hue app before connecting again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
 		if (selectedButton != QMessageBox::StandardButton::Retry) {
 			stream->ResetBridgeInfo();
 		}
-
-		_connected = false;
 
 		connectToBridge();
 	}
@@ -88,10 +88,28 @@ void MainWindow::onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream
 
 void MainWindow::onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge)
 {
+	QMessageBox::critical(this, "Bridge disconnected", "The connection to the bridge appears to have been lost.");
 }
 
 void MainWindow::onBridgeConnectionFailed()
 {
+	QMessageBox::critical(this, "Couldn't connect to the bridge", "A connection to the bridge could not be established.");
+}
+
+void MainWindow::connectToCamera()
+{
+	auto retry = true;
+	while (retry) {
+		retry = false;
+		_capture->connectToDefaultCamera();
+		if (_capture->connectedToCamera()) {
+			_captureTimer->start();
+		}
+		else {
+			auto selectedButton = QMessageBox::critical(this, "Couldn't find a camera", "A compatible camera couldn't be found, or the default camera is unavailable.\n\nPlease ensure a camera is plugged in, or the default camera is not currently in use and try again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
+			retry = selectedButton == QMessageBox::StandardButton::Retry;
+		}
+	}
 }
 
 void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
@@ -99,27 +117,16 @@ void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
 	if (group && _stream) {
 		_stream->SelectGroup(group);
 
-		auto retry = true;
-		while (retry) {
-			retry = false;
-
-			_capture->connectToDefaultCamera();
-			if (_capture->connectedToCamera()) {
-				_captureTimer->start();
-			}
-			else {
-				auto selectedButton = QMessageBox::critical(this, "Couldn't find a camera", "A compatible camera couldn't be found, or the default camera is unavailable.\n\nPlease ensure a camera is plugged in, or the default camera is not currently in use and try again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
-				retry = selectedButton == QMessageBox::StandardButton::Retry;
-			}
-		}
+		connectToCamera();
 	}
 }
 
-void MainWindow::processImage(const QImage & image)
+void MainWindow::processImage(const QImage &image)
 {
-	if (!image.isNull()) {
+	if (!image.isNull() && _stream) {
 		auto size = image.size();
-		auto areas = std::vector<ColourArea>{
+
+		std::vector<ColourArea> areas = {
 			ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
 			ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
 			ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
@@ -132,9 +139,6 @@ void MainWindow::processImage(const QImage & image)
 				for (auto area : areas) {
 					if (area.pointIsInside(x, y)) {
 						area.getColourGroup()->addColour(pixelColour);
-					}
-					else {
-						int a = 0;
 					}
 				}
 			}
@@ -161,6 +165,13 @@ void MainWindow::captureTimerUpdated()
 {
 	if (!_capture->connectedToCamera()) {
 		_captureTimer->stop();
+
+		if (!_capture->wasSafelyDisconnected()) {
+			QMessageBox::critical(this, "Couldn't connect to the camera", "The camera cannot be accessed anymore. This could be due to the camera becoming unplugged, or another application is using it.");
+		}
+	}
+	else if (!_stream)	{
+		_captureTimer->stop();
 	}
 	else {
 		auto frameTime = (int)std::round(1000.0 / _targetFramerate);
@@ -179,4 +190,31 @@ void MainWindow::captureTimerUpdated()
 			}
 		}
 	}
+}
+
+void MainWindow::connectToNewBridge()
+{
+	disconnectFromBridge();
+
+	_stream->ResetBridgeInfo();
+
+	connectToBridge();
+}
+
+void MainWindow::connectToNewCamera()
+{
+	disconnectFromCamera();
+	connectToCamera();
+}
+
+void MainWindow::disconnectFromBridge()
+{
+	if (_stream && _stream->IsBridgeStreaming()) {
+		_stream->Stop();
+	}
+}
+
+void MainWindow::disconnectFromCamera()
+{
+	_capture->disconnectCamera();
 }

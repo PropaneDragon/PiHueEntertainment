@@ -29,13 +29,10 @@ class Ui_MainWindow
 {
 public:
     QAction *actionExit;
-    QAction *actionDisconnect_from_hub;
-    QAction *actionReconnect_to_hub;
-    QAction *actionConnect_to_new_Hub;
-    QAction *actionDisconnect;
-    QAction *actionReconncet;
-    QAction *actionConnect;
-    QAction *actionRestart;
+    QAction *actionDisconnectHub;
+    QAction *actionConnectHub;
+    QAction *actionConnectCamera;
+    QAction *actionDisconnectCamera;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
@@ -64,20 +61,14 @@ public:
 "}"));
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QStringLiteral("actionExit"));
-        actionDisconnect_from_hub = new QAction(MainWindow);
-        actionDisconnect_from_hub->setObjectName(QStringLiteral("actionDisconnect_from_hub"));
-        actionReconnect_to_hub = new QAction(MainWindow);
-        actionReconnect_to_hub->setObjectName(QStringLiteral("actionReconnect_to_hub"));
-        actionConnect_to_new_Hub = new QAction(MainWindow);
-        actionConnect_to_new_Hub->setObjectName(QStringLiteral("actionConnect_to_new_Hub"));
-        actionDisconnect = new QAction(MainWindow);
-        actionDisconnect->setObjectName(QStringLiteral("actionDisconnect"));
-        actionReconncet = new QAction(MainWindow);
-        actionReconncet->setObjectName(QStringLiteral("actionReconncet"));
-        actionConnect = new QAction(MainWindow);
-        actionConnect->setObjectName(QStringLiteral("actionConnect"));
-        actionRestart = new QAction(MainWindow);
-        actionRestart->setObjectName(QStringLiteral("actionRestart"));
+        actionDisconnectHub = new QAction(MainWindow);
+        actionDisconnectHub->setObjectName(QStringLiteral("actionDisconnectHub"));
+        actionConnectHub = new QAction(MainWindow);
+        actionConnectHub->setObjectName(QStringLiteral("actionConnectHub"));
+        actionConnectCamera = new QAction(MainWindow);
+        actionConnectCamera->setObjectName(QStringLiteral("actionConnectCamera"));
+        actionDisconnectCamera = new QAction(MainWindow);
+        actionDisconnectCamera->setObjectName(QStringLiteral("actionDisconnectCamera"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -120,12 +111,17 @@ public:
         menubar->addAction(menuCamera->menuAction());
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
-        menuHuib->addAction(actionConnect);
-        menuHuib->addAction(actionDisconnect);
-        menuHuib->addAction(actionReconncet);
-        menuCamera->addAction(actionRestart);
+        menuHuib->addAction(actionConnectHub);
+        menuHuib->addAction(actionDisconnectHub);
+        menuCamera->addAction(actionConnectCamera);
+        menuCamera->addAction(actionDisconnectCamera);
 
         retranslateUi(MainWindow);
+        QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
+        QObject::connect(actionConnectCamera, SIGNAL(triggered()), MainWindow, SLOT(connectToNewCamera()));
+        QObject::connect(actionConnectHub, SIGNAL(triggered()), MainWindow, SLOT(connectToNewBridge()));
+        QObject::connect(actionDisconnectCamera, SIGNAL(triggered()), MainWindow, SLOT(disconnectFromCamera()));
+        QObject::connect(actionDisconnectHub, SIGNAL(triggered()), MainWindow, SLOT(disconnectFromBridge()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -134,13 +130,10 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         actionExit->setText(QApplication::translate("MainWindow", "Close", Q_NULLPTR));
-        actionDisconnect_from_hub->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
-        actionReconnect_to_hub->setText(QApplication::translate("MainWindow", "Reconnect", Q_NULLPTR));
-        actionConnect_to_new_Hub->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
-        actionDisconnect->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
-        actionReconncet->setText(QApplication::translate("MainWindow", "Reconncet", Q_NULLPTR));
-        actionConnect->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
-        actionRestart->setText(QApplication::translate("MainWindow", "Restart", Q_NULLPTR));
+        actionDisconnectHub->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
+        actionConnectHub->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
+        actionConnectCamera->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
+        actionDisconnectCamera->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
         label_cameraImage->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHuib->setTitle(QApplication::translate("MainWindow", "Hub", Q_NULLPTR));

@@ -73,15 +73,15 @@ QWidget {
     <property name="title">
      <string>Hub</string>
     </property>
-    <addaction name="actionConnect"/>
-    <addaction name="actionDisconnect"/>
-    <addaction name="actionReconncet"/>
+    <addaction name="actionConnectHub"/>
+    <addaction name="actionDisconnectHub"/>
    </widget>
    <widget class="QMenu" name="menuCamera">
     <property name="title">
      <string>Camera</string>
     </property>
-    <addaction name="actionRestart"/>
+    <addaction name="actionConnectCamera"/>
+    <addaction name="actionDisconnectCamera"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHuib"/>
@@ -93,42 +93,114 @@ QWidget {
     <string>Close</string>
    </property>
   </action>
-  <action name="actionDisconnect_from_hub">
+  <action name="actionDisconnectHub">
    <property name="text">
     <string>Disconnect</string>
    </property>
   </action>
-  <action name="actionReconnect_to_hub">
-   <property name="text">
-    <string>Reconnect</string>
-   </property>
-  </action>
-  <action name="actionConnect_to_new_Hub">
+  <action name="actionConnectHub">
    <property name="text">
     <string>Connect</string>
    </property>
   </action>
-  <action name="actionDisconnect">
+  <action name="actionConnectCamera">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="actionDisconnectCamera">
    <property name="text">
     <string>Disconnect</string>
-   </property>
-  </action>
-  <action name="actionReconncet">
-   <property name="text">
-    <string>Reconncet</string>
-   </property>
-  </action>
-  <action name="actionConnect">
-   <property name="text">
-    <string>Connect</string>
-   </property>
-  </action>
-  <action name="actionRestart">
-   <property name="text">
-    <string>Restart</string>
    </property>
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConnectCamera</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>connectToNewCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConnectHub</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>connectToNewBridge()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDisconnectCamera</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>disconnectFromCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDisconnectHub</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>disconnectFromBridge()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>connectToNewBridge()</slot>
+  <slot>disconnectFromBridge()</slot>
+  <slot>connectToNewCamera()</slot>
+  <slot>disconnectFromCamera()</slot>
+ </slots>
 </ui>

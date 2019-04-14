@@ -22,11 +22,11 @@ CameraCapture::~CameraCapture()
 
 void CameraCapture::connectToDefaultCamera()
 {
-	if (_camera) {
-		disconnectCamera();
-	}
+	disconnectCamera();
 
-	auto availableCameras = QCameraInfo::availableCameras().count();
+	_safelyDisconnected = false;
+
+	auto availableCameras = QCameraInfo::availableCameras();
 
  	auto cameraInfo = QCameraInfo::defaultCamera();
 	if (!cameraInfo.isNull() && _viewfinder) {
@@ -50,27 +50,38 @@ void CameraCapture::connectToDefaultCamera()
 
 void CameraCapture::disconnectCamera()
 {
-	_camera->disconnect();
-	_camera->deleteLater();
-	_camera = nullptr;
+	_safelyDisconnected = true;
+
+	if (_camera) {
+		_camera->unlock();
+		_camera->disconnect();
+		_camera->unload();
+		_camera->deleteLater();
+		_camera = nullptr;
+	}
 }
 
-bool CameraCapture::connectedToCamera()
+bool CameraCapture::connectedToCamera() const
 {
-	return _camera;
+	return _camera && _camera->error() == QCamera::Error::NoError && _camera->availability() == QMultimedia::AvailabilityStatus::Available;
 }
 
-bool CameraCapture::hasNewImage(const QDateTime &since)
+bool CameraCapture::wasSafelyDisconnected() const
+{
+	return _safelyDisconnected;
+}
+
+bool CameraCapture::hasNewImage(const QDateTime &since) const
 {
 	return _lastImageUpdate >= since;
 }
 
-QImage CameraCapture::lastImage()
+QImage CameraCapture::lastImage() const
 {
 	return _lastImage;
 }
 
-QSize CameraCapture::resolution()
+QSize CameraCapture::resolution() const
 {
 	return _expectedResolution;
 }

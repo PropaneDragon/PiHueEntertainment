@@ -17,16 +17,19 @@ public:
 	void connectToDefaultCamera();
 	void disconnectCamera();
 
-	bool connectedToCamera();
-	bool hasNewImage(const QDateTime &since);
+	bool connectedToCamera() const;
+	bool hasNewImage(const QDateTime &since) const;
+	bool wasSafelyDisconnected() const;
 
-	QImage lastImage();
-	QSize resolution();
+	QImage lastImage() const;
+	QSize resolution() const;
 
 public slots:
 	void imageCaptured(QImage image);
 
 private:
+	bool _safelyDisconnected = false;
+
 	QDateTime _lastImageUpdate = QDateTime::currentDateTime().addYears(-1);
 	QImage _lastImage;
 	QSize _expectedResolution = QSize(50, 50);
