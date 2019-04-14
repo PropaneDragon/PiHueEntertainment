@@ -3,18 +3,24 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
 	<IS_LINUX>false</IS_LINUX>
-	<IS_WINDOWS Condition="">false</IS_WINDOWS>
+	<IS_WINDOWS>false</IS_WINDOWS>
+	<IS_DEBUG>false</IS_DEBUG>
+	<IS_RELEASE>false</IS_RELEASE>
 	
 	<IS_LINUX Condition="'$(Platform)'=='ARM'">true</IS_LINUX>
 	<IS_LINUX Condition="'$(Platform)'=='ARM64'">true</IS_LINUX>
 	
 	<IS_WINDOWS Condition="'$(IS_LINUX)'=='false'">true</IS_WINDOWS>
 	
+	<IS_DEBUG Condition="'$(Configuration)'=='Debug'">true</IS_DEBUG>
+	<IS_RELEASE Condition="'$(IS_DEBUG)'=='false'">true</IS_RELEASE>
+	
 	<LIB_PRE></LIB_PRE>
 	<LIB_EXT>.lib</LIB_EXT>
 	<LIB_PRE Condition="'$(IS_LINUX)'=='true'">-l</LIB_PRE>
 	<LIB_EXT Condition="'$(IS_LINUX)'=='true'"></LIB_EXT>
-	<LIB_EXT_INC_D>d$(LIB_EXT)</LIB_EXT_INC_D>
+	<LIB_EXT_INC_D>$(LIB_EXT)</LIB_EXT_INC_D>
+	<LIB_EXT_INC_D Condition="'$(IS_DEBUG)'=='true'">d$(LIB_EXT)</LIB_EXT_INC_D>
 	<LIB_EXT_INC_D Condition="'$(IS_LINUX)'=='true'">$(LIB_EXT)</LIB_EXT_INC_D>
 	
 	<DIR_ROOT>$(SolutionDir)</DIR_ROOT>
@@ -54,7 +60,7 @@
 	
 	<DIR_INC_EDK_FULL>$(DIR_INC_EDK_THIRDPARTY_EDTLS);$(DIR_INC_EDK_THIRDPARTY_BOOST);$(DIR_EDK_THIRDPARTY);$(DIR_INC_HUESTREAM_SUPPORT);$(DIR_INC_HUESTREAM_BRIDGEDISCOVERY);$(DIR_INC_HUESTREAM)</DIR_INC_EDK_FULL>
 	
-    <DIR_LIB_EDK>$(DIR_EDK_COMPILED)/bin</DIR_LIB_EDK>
+    <DIR_LIB_EDK>$(DIR_EDK_COMPILED)/bin/$(Configuration)</DIR_LIB_EDK>
 	<DIR_LIB_EDK_THIRDPARTY>$(DIR_EDK_COMPILED)/external_build/src</DIR_LIB_EDK_THIRDPARTY>
 	<DIR_LIB_EDK_THIRDPARTY_JSON>$(DIR_LIB_EDK_THIRDPARTY)/external_libjson-build</DIR_LIB_EDK_THIRDPARTY_JSON>
 	<DIR_LIB_EDK_THIRDPARTY_JSON Condition="'$(IS_WINDOWS)'=='true'">$(DIR_LIB_EDK_THIRDPARTY_JSON)/$(Configuration)</DIR_LIB_EDK_THIRDPARTY_JSON>
