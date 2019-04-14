@@ -19,7 +19,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -33,6 +32,12 @@ public:
     QAction *actionConnectHub;
     QAction *actionConnectCamera;
     QAction *actionDisconnectCamera;
+    QAction *actionChangeHub;
+    QAction *actionChangeCamera;
+    QAction *actionOptions;
+    QAction *actionUpdate_image;
+    QAction *actionRotate_90_clockwise;
+    QAction *actionRotate_90_anti_clockwise;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
@@ -42,7 +47,8 @@ public:
     QMenu *menuFile;
     QMenu *menuHuib;
     QMenu *menuCamera;
-    QStatusBar *statusbar;
+    QMenu *menuDisplay;
+    QMenu *menuSettings;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -69,10 +75,29 @@ public:
         actionConnectCamera->setObjectName(QStringLiteral("actionConnectCamera"));
         actionDisconnectCamera = new QAction(MainWindow);
         actionDisconnectCamera->setObjectName(QStringLiteral("actionDisconnectCamera"));
+        actionChangeHub = new QAction(MainWindow);
+        actionChangeHub->setObjectName(QStringLiteral("actionChangeHub"));
+        actionChangeCamera = new QAction(MainWindow);
+        actionChangeCamera->setObjectName(QStringLiteral("actionChangeCamera"));
+        actionChangeCamera->setEnabled(false);
+        actionOptions = new QAction(MainWindow);
+        actionOptions->setObjectName(QStringLiteral("actionOptions"));
+        actionOptions->setEnabled(false);
+        actionUpdate_image = new QAction(MainWindow);
+        actionUpdate_image->setObjectName(QStringLiteral("actionUpdate_image"));
+        actionUpdate_image->setCheckable(true);
+        actionUpdate_image->setChecked(true);
+        actionRotate_90_clockwise = new QAction(MainWindow);
+        actionRotate_90_clockwise->setObjectName(QStringLiteral("actionRotate_90_clockwise"));
+        actionRotate_90_clockwise->setEnabled(false);
+        actionRotate_90_anti_clockwise = new QAction(MainWindow);
+        actionRotate_90_anti_clockwise->setObjectName(QStringLiteral("actionRotate_90_anti_clockwise"));
+        actionRotate_90_anti_clockwise->setEnabled(false);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         widget = new QWidget(centralwidget);
         widget->setObjectName(QStringLiteral("widget"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -82,6 +107,7 @@ public:
         widget->setSizePolicy(sizePolicy);
         horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
         label_cameraImage = new QLabel(widget);
         label_cameraImage->setObjectName(QStringLiteral("label_cameraImage"));
         label_cameraImage->setScaledContents(true);
@@ -101,43 +127,65 @@ public:
         menuHuib->setObjectName(QStringLiteral("menuHuib"));
         menuCamera = new QMenu(menubar);
         menuCamera->setObjectName(QStringLiteral("menuCamera"));
+        menuDisplay = new QMenu(menubar);
+        menuDisplay->setObjectName(QStringLiteral("menuDisplay"));
+        menuSettings = new QMenu(menubar);
+        menuSettings->setObjectName(QStringLiteral("menuSettings"));
         MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
-        MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuFile->menuAction());
         menubar->addAction(menuHuib->menuAction());
         menubar->addAction(menuCamera->menuAction());
+        menubar->addAction(menuDisplay->menuAction());
+        menubar->addAction(menuSettings->menuAction());
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
         menuHuib->addAction(actionConnectHub);
         menuHuib->addAction(actionDisconnectHub);
+        menuHuib->addSeparator();
+        menuHuib->addAction(actionChangeHub);
         menuCamera->addAction(actionConnectCamera);
         menuCamera->addAction(actionDisconnectCamera);
+        menuCamera->addSeparator();
+        menuCamera->addAction(actionChangeCamera);
+        menuDisplay->addAction(actionUpdate_image);
+        menuDisplay->addAction(actionRotate_90_clockwise);
+        menuDisplay->addAction(actionRotate_90_anti_clockwise);
+        menuSettings->addAction(actionOptions);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
-        QObject::connect(actionConnectCamera, SIGNAL(triggered()), MainWindow, SLOT(connectToNewCamera()));
-        QObject::connect(actionConnectHub, SIGNAL(triggered()), MainWindow, SLOT(connectToNewBridge()));
+        QObject::connect(actionConnectCamera, SIGNAL(triggered()), MainWindow, SLOT(connectToCamera()));
+        QObject::connect(actionConnectHub, SIGNAL(triggered()), MainWindow, SLOT(connectToBridge()));
         QObject::connect(actionDisconnectCamera, SIGNAL(triggered()), MainWindow, SLOT(disconnectFromCamera()));
         QObject::connect(actionDisconnectHub, SIGNAL(triggered()), MainWindow, SLOT(disconnectFromBridge()));
+        QObject::connect(actionChangeHub, SIGNAL(triggered()), MainWindow, SLOT(connectToNewBridge()));
+        QObject::connect(actionChangeCamera, SIGNAL(triggered()), MainWindow, SLOT(connectToNewCamera()));
+        QObject::connect(actionUpdate_image, SIGNAL(toggled(bool)), MainWindow, SLOT(changeImageUpdatePreference(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "PHE", Q_NULLPTR));
         actionExit->setText(QApplication::translate("MainWindow", "Close", Q_NULLPTR));
         actionDisconnectHub->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
         actionConnectHub->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
         actionConnectCamera->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
         actionDisconnectCamera->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
+        actionChangeHub->setText(QApplication::translate("MainWindow", "Change", Q_NULLPTR));
+        actionChangeCamera->setText(QApplication::translate("MainWindow", "Change", Q_NULLPTR));
+        actionOptions->setText(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
+        actionUpdate_image->setText(QApplication::translate("MainWindow", "Update image", Q_NULLPTR));
+        actionRotate_90_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 clockwise", Q_NULLPTR));
+        actionRotate_90_anti_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 anti-clockwise", Q_NULLPTR));
         label_cameraImage->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHuib->setTitle(QApplication::translate("MainWindow", "Hub", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindow", "Camera", Q_NULLPTR));
+        menuDisplay->setTitle(QApplication::translate("MainWindow", "Display", Q_NULLPTR));
+        menuSettings->setTitle(QApplication::translate("MainWindow", "Settings", Q_NULLPTR));
     } // retranslateUi
 
 };

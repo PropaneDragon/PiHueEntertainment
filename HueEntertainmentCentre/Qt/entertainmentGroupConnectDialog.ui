@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Select an entertainment area</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Select an entertainment group</string>
+      <string>Select an entertainment area</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -42,7 +42,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>It appears you have multiple entertainment groups. Please select the group to control below.</string>
+      <string>It appears you have multiple entertainment areas. Please select the area to control below.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

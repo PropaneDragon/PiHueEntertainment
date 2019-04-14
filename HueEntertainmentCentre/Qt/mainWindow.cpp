@@ -47,14 +47,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	disconnectFromCamera();
 }
 
-void MainWindow::connectToBridge()
-{
-	if (!_stream || !_stream->IsBridgeStreaming()) {
-		auto connectDialog = new HubConnectDialog(this);
-		auto result = (QDialog::DialogCode)connectDialog->exec();
-	}
-}
-
 void MainWindow::onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream, std::shared_ptr<huestream::Bridge> bridge)
 {
 	_stream = stream;
@@ -94,22 +86,6 @@ void MainWindow::onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge)
 void MainWindow::onBridgeConnectionFailed()
 {
 	QMessageBox::critical(this, "Couldn't connect to the bridge", "A connection to the bridge could not be established.");
-}
-
-void MainWindow::connectToCamera()
-{
-	auto retry = true;
-	while (retry) {
-		retry = false;
-		_capture->connectToDefaultCamera();
-		if (_capture->connectedToCamera()) {
-			_captureTimer->start();
-		}
-		else {
-			auto selectedButton = QMessageBox::critical(this, "Couldn't find a camera", "A compatible camera couldn't be found, or the default camera is unavailable.\n\nPlease ensure a camera is plugged in, or the default camera is not currently in use and try again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
-			retry = selectedButton == QMessageBox::StandardButton::Retry;
-		}
-	}
 }
 
 void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
@@ -184,18 +160,46 @@ void MainWindow::captureTimerUpdated()
 			auto image = _capture->lastImage();
 			if (!image.isNull()) {
 
-				label_cameraImage->setPixmap(QPixmap::fromImage(image));
-
 				processImage(image);
+
+				if (_imageAllowedToUpdate) {
+					label_cameraImage->setPixmap(QPixmap::fromImage(image));
+				}
 			}
+		}
+	}
+}
+
+void MainWindow::connectToBridge()
+{
+	disconnectFromBridge();
+
+	if (!_stream || !_stream->IsBridgeStreaming()) {
+		auto connectDialog = new HubConnectDialog(this);
+		auto result = (QDialog::DialogCode)connectDialog->exec();
+	}
+}
+
+void MainWindow::connectToCamera()
+{
+	disconnectFromCamera();
+
+	auto retry = true;
+	while (retry) {
+		retry = false;
+		_capture->connectToDefaultCamera();
+		if (_capture->connectedToCamera()) {
+			_captureTimer->start();
+		}
+		else {
+			auto selectedButton = QMessageBox::critical(this, "Couldn't find a camera", "A compatible camera couldn't be found, or the default camera is unavailable.\n\nPlease ensure a camera is plugged in, or the default camera is not currently in use and try again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
+			retry = selectedButton == QMessageBox::StandardButton::Retry;
 		}
 	}
 }
 
 void MainWindow::connectToNewBridge()
 {
-	disconnectFromBridge();
-
 	_stream->ResetBridgeInfo();
 
 	connectToBridge();
@@ -203,7 +207,6 @@ void MainWindow::connectToNewBridge()
 
 void MainWindow::connectToNewCamera()
 {
-	disconnectFromCamera();
 	connectToCamera();
 }
 
@@ -217,4 +220,9 @@ void MainWindow::disconnectFromBridge()
 void MainWindow::disconnectFromCamera()
 {
 	_capture->disconnectCamera();
+}
+
+void MainWindow::changeImageUpdatePreference(bool canUpdate)
+{
+	_imageAllowedToUpdate = canUpdate;
 }

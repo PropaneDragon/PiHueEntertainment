@@ -83,10 +83,10 @@ public:
 
     void retranslateUi(QDialog *EntertainmentGroupConnectDialog)
     {
-        EntertainmentGroupConnectDialog->setWindowTitle(QApplication::translate("EntertainmentGroupConnectDialog", "Dialog", Q_NULLPTR));
-        label->setText(QApplication::translate("EntertainmentGroupConnectDialog", "Select an entertainment group", Q_NULLPTR));
+        EntertainmentGroupConnectDialog->setWindowTitle(QApplication::translate("EntertainmentGroupConnectDialog", "Select an entertainment area", Q_NULLPTR));
+        label->setText(QApplication::translate("EntertainmentGroupConnectDialog", "Select an entertainment area", Q_NULLPTR));
         label->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "header", Q_NULLPTR)));
-        label_2->setText(QApplication::translate("EntertainmentGroupConnectDialog", "It appears you have multiple entertainment groups. Please select the group to control below.", Q_NULLPTR));
+        label_2->setText(QApplication::translate("EntertainmentGroupConnectDialog", "It appears you have multiple entertainment areas. Please select the area to control below.", Q_NULLPTR));
         label_2->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "footer", Q_NULLPTR)));
     } // retranslateUi
 

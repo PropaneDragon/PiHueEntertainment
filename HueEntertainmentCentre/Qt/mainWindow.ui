@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PHE</string>
   </property>
   <property name="toolTipDuration">
    <number>-5</number>
@@ -29,6 +29,18 @@ QWidget {
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
@@ -38,6 +50,18 @@ QWidget {
        </sizepolicy>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QLabel" name="label_cameraImage">
          <property name="text">
@@ -75,6 +99,8 @@ QWidget {
     </property>
     <addaction name="actionConnectHub"/>
     <addaction name="actionDisconnectHub"/>
+    <addaction name="separator"/>
+    <addaction name="actionChangeHub"/>
    </widget>
    <widget class="QMenu" name="menuCamera">
     <property name="title">
@@ -82,12 +108,29 @@ QWidget {
     </property>
     <addaction name="actionConnectCamera"/>
     <addaction name="actionDisconnectCamera"/>
+    <addaction name="separator"/>
+    <addaction name="actionChangeCamera"/>
+   </widget>
+   <widget class="QMenu" name="menuDisplay">
+    <property name="title">
+     <string>Display</string>
+    </property>
+    <addaction name="actionUpdate_image"/>
+    <addaction name="actionRotate_90_clockwise"/>
+    <addaction name="actionRotate_90_anti_clockwise"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionOptions"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHuib"/>
    <addaction name="menuCamera"/>
+   <addaction name="menuDisplay"/>
+   <addaction name="menuSettings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="text">
     <string>Close</string>
@@ -113,6 +156,54 @@ QWidget {
     <string>Disconnect</string>
    </property>
   </action>
+  <action name="actionChangeHub">
+   <property name="text">
+    <string>Change</string>
+   </property>
+  </action>
+  <action name="actionChangeCamera">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Change</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Options</string>
+   </property>
+  </action>
+  <action name="actionUpdate_image">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Update image</string>
+   </property>
+  </action>
+  <action name="actionRotate_90_clockwise">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Rotate 90° clockwise</string>
+   </property>
+  </action>
+  <action name="actionRotate_90_anti_clockwise">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Rotate 90° anti-clockwise</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -136,7 +227,7 @@ QWidget {
    <sender>actionConnectCamera</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>connectToNewCamera()</slot>
+   <slot>connectToCamera()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -152,7 +243,7 @@ QWidget {
    <sender>actionConnectHub</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>connectToNewBridge()</slot>
+   <slot>connectToBridge()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -196,11 +287,62 @@ QWidget {
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionChangeHub</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>connectToNewBridge()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionChangeCamera</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>connectToNewCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionUpdate_image</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changeImageUpdatePreference(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>connectToNewBridge()</slot>
   <slot>disconnectFromBridge()</slot>
   <slot>connectToNewCamera()</slot>
   <slot>disconnectFromCamera()</slot>
+  <slot>connectToBridge()</slot>
+  <slot>connectToCamera()</slot>
+  <slot>changeImageUpdatePreference(bool)</slot>
  </slots>
 </ui>

@@ -77,7 +77,7 @@ public:
 
     void retranslateUi(QDialog *HubConnectDialog)
     {
-        HubConnectDialog->setWindowTitle(QApplication::translate("HubConnectDialog", "Dialog", Q_NULLPTR));
+        HubConnectDialog->setWindowTitle(QApplication::translate("HubConnectDialog", "Connecting to hub", Q_NULLPTR));
         label->setText(QApplication::translate("HubConnectDialog", "Connecting to hub", Q_NULLPTR));
         label->setProperty("class", QVariant(QApplication::translate("HubConnectDialog", "header", Q_NULLPTR)));
         label_2->setText(QApplication::translate("HubConnectDialog", "If this is your first time connecting, press the connect button in the centre of the Hue hub you wish to connect to now.", Q_NULLPTR));

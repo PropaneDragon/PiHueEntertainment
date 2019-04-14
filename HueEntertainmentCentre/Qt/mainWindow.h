@@ -28,11 +28,9 @@ public:
 	void showEvent(QShowEvent *event) override;
 	void closeEvent(QCloseEvent *event) override;
 
-	void connectToBridge();
 	void onBridgeConnected(std::shared_ptr<huestream::IHueStream> stream, std::shared_ptr<huestream::Bridge> bridge) override;
 	void onBridgeDisconnected(std::shared_ptr<huestream::Bridge> bridge) override;
 	void onBridgeConnectionFailed() override;
-	void connectToCamera();
 	void connectToGroup(std::shared_ptr<huestream::Group> group);
 	void processImage(const QImage &image);
 
@@ -40,11 +38,15 @@ protected slots:
 	void captureTimerUpdated();
 	void connectToNewBridge();
 	void connectToNewCamera();
+	void connectToBridge();
+	void connectToCamera();
 	void disconnectFromBridge();
 	void disconnectFromCamera();
+	void changeImageUpdatePreference(bool canUpdate);
 
 private:
 	bool _connected = false;
+	bool _imageAllowedToUpdate = true;
 
 	int _targetFramerate = 10;
 
