@@ -13,3 +13,11 @@ This allows you to point a compatible camera at any screen or display and synchr
 ## Limitations
 * Due to the limited power of the Raspberry Pi, it is only really capable of capturing at about 10fps, which is mostly fine for lighting.
 * Camera latency could be an issue. I've only been using an old dashcam as a camera though, so this could just be down to the camera performance.
+
+## Setting up
+* Download the correct version for your operating system and architecture, or compile your own using the available code.
+  * Compilation requires Qt 5.7 and the Hue Entertainment API.
+* Connect a compatible camera to your device.
+* Start the application up, and you should be greeted with a window asking you to connect to your Hue Bridge. To do this, press the button on the middle of the Hue bridge you wish to connect to. (This can be changed later)
+* If you have more than one entertainment area you will be asked to choose the area you wish to control. Entertainment areas need to be set up using the Hue app.
+* You should now see output from your connected camera. If you only see a blank screen, your camera is incompatible or not correctly connected. You can change orientation settings by selecting the *Display* item on the toolbar and changing the available settings. More options will become available as the development progresses.
