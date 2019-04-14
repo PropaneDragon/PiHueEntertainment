@@ -1,4 +1,5 @@
 # PiHueEntertainment
+![Application overview image](https://github.com/PropaneDragon/PiHueEntertainment/blob/master/HueEntertainmentCentre/image_overview.png)
 An application that can utilise a webcam plugged into a Raspberry Pi (or Windows desktop) to output to Philips Hue Entertainment Areas.
 
 ## What does this mean?
