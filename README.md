@@ -4,7 +4,7 @@ An application that can utilise a webcam plugged into a Raspberry Pi (or Windows
 ## What does this mean?
 This allows you to point a compatible camera at any screen or display and synchronise your Hue lights with it, regardless of where the content on the display is coming from. This means you no longer have to route content through a desktop running Hue Sync to have a dynamic room.
 
-![Image of application in operation](https://giant.gfycat.com/GreedyCaringHackee.gif)
+![Recent image of application in operation](https://giant.gfycat.com/SplendidPleasedEagle.gif)
 
 ## Current capabilities
 * A full UI to connect to a Hue Hub, select an entertainment area and view the camera input.
