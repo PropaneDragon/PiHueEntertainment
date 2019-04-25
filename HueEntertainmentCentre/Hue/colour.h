@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <QColor>
 
 #include "huestream/HueStream.h"
@@ -18,6 +20,8 @@ public:
 	void setRed(float red);
 	void setGreen(float green);
 	void setBlue(float blue);
+
+	static Colour average(std::vector<Colour> colours);
 
 	QColor qtColour() const;
 	huestream::Color hueColour() const;

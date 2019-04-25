@@ -22,7 +22,7 @@ public:
 	bool wasSafelyDisconnected() const;
 
 	QImage lastImage() const;
-	QSize resolution() const;
+	QSize viewfinderResolution() const;
 
 public slots:
 	void imageCaptured(QImage image);
@@ -32,7 +32,6 @@ private:
 
 	QDateTime _lastImageUpdate = QDateTime::currentDateTime().addYears(-1);
 	QImage _lastImage;
-	QSize _expectedResolution = QSize(50, 50);
 
 	QCamera *_camera = nullptr;
 	CameraImageViewfinder *_viewfinder = nullptr;

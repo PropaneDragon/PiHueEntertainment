@@ -11,7 +11,7 @@
 
 CameraCapture::CameraCapture(QObject *parent) : QObject(parent)
 {
-	_viewfinder = new CameraImageViewfinder(_expectedResolution);
+	_viewfinder = new CameraImageViewfinder();
 
 	connect(_viewfinder, &CameraImageViewfinder::imageCaptured, this, &CameraCapture::imageCaptured);
 }
@@ -33,7 +33,7 @@ void CameraCapture::connectToDefaultCamera()
  		_camera = new QCamera(cameraInfo);
 		_camera->setCaptureMode(QCamera::CaptureMode::CaptureViewfinder);
 		_camera->setViewfinder(_viewfinder);
-		_camera->viewfinderSettings().setResolution(QSize(_expectedResolution.width(), _expectedResolution.height()));
+		_camera->viewfinderSettings().setResolution(_viewfinder->resolution());
 		_camera->exposure()->setManualAperture(16);
 		_camera->exposure()->setManualIsoSensitivity(100);
 		_camera->exposure()->setManualShutterSpeed(0.001);
@@ -81,14 +81,18 @@ QImage CameraCapture::lastImage() const
 	return _lastImage;
 }
 
-QSize CameraCapture::resolution() const
+QSize CameraCapture::viewfinderResolution() const
 {
-	return _expectedResolution;
+	if (_viewfinder) {
+		return _viewfinder->resolution();
+	}
+
+	return QSize(50, 50);
 }
 
 void CameraCapture::imageCaptured(QImage image)
 {
-	if (!image.isNull() && image.size() == _expectedResolution) {
+	if (!image.isNull() && image.size() == viewfinderResolution()) {
 		_lastImage = image;
 		_lastImageUpdate = QDateTime::currentDateTime();
 	}

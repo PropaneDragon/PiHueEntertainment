@@ -128,6 +128,7 @@ QWidget {
      <string>Settings</string>
     </property>
     <addaction name="actionOptions"/>
+    <addaction name="actionPerformance"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHuib"/>
@@ -175,7 +176,7 @@ QWidget {
   </action>
   <action name="actionOptions">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Options</string>
@@ -222,6 +223,11 @@ QWidget {
    </property>
    <property name="text">
     <string>Flip vertical</string>
+   </property>
+  </action>
+  <action name="actionPerformance">
+   <property name="text">
+    <string>Performance</string>
    </property>
   </action>
  </widget>
@@ -419,6 +425,22 @@ QWidget {
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionOptions</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showOptions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>connectToNewBridge()</slot>
@@ -432,5 +454,6 @@ QWidget {
   <slot>rotateImageClockwise()</slot>
   <slot>flipImageVertical(bool)</slot>
   <slot>flipImageHorizontal(bool)</slot>
+  <slot>showOptions()</slot>
  </slots>
 </ui>

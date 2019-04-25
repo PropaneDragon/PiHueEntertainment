@@ -132,6 +132,7 @@
     <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_optionsDialog.cpp" />
     <ClCompile Include="Hue\area.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandler.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Qt\hubConnectDialog.cpp" />
     <ClCompile Include="Qt\hueBridgeListModel.cpp" />
     <ClCompile Include="Qt\mainWindow.cpp" />
+    <ClCompile Include="Qt\optionsDialog.cpp" />
     <ClCompile Include="Qt\qThreadLambda.cpp" />
     <ClCompile Include="Qt\startWindow.cpp" />
   </ItemGroup>
@@ -167,6 +169,7 @@
     <ClInclude Include="Qt\entertainmentGroupListModel.h" />
     <ClInclude Include="Qt\hueBridgeListModel.h" />
     <QtMoc Include="Qt\mainWindow.h" />
+    <QtMoc Include="Qt\optionsDialog.h" />
     <ClInclude Include="Qt\qThreadLambda.h" />
     <ClInclude Include="Qt\startWindow.h" />
     <QtMoc Include="Qt\cameraCapture.h" />
@@ -176,6 +179,7 @@
     <QtUic Include="Qt\entertainmentGroupConnectDialog.ui" />
     <QtUic Include="Qt\hubConnectDialog.ui" />
     <QtUic Include="Qt\mainWindow.ui" />
+    <QtUic Include="Qt\optionsDialog.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

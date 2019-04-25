@@ -65,6 +65,12 @@
     <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp">
       <Filter>Qt\Generated</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\optionsDialog.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_optionsDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -94,6 +100,17 @@
     <Filter Include="Qt\UI Files">
       <UniqueIdentifier>{62abdbda-ad93-46df-b824-48901230c8eb}</UniqueIdentifier>
       <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{ecda5ebc-687c-4310-90c1-3b95e0a1c2a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Header Files">
+      <UniqueIdentifier>{c5ab8574-c9fb-434d-88d3-2ac8197c4d8a}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Application\Source Files">
+      <UniqueIdentifier>{4c91896a-f978-48fa-a23d-0f24e8dee1a0}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +176,9 @@
     <QtMoc Include="Qt\mainWindow.h">
       <Filter>Qt\Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Qt\optionsDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Qt\mainWindow.ui">
@@ -168,6 +188,9 @@
       <Filter>Qt\UI Files</Filter>
     </QtUic>
     <QtUic Include="Qt\entertainmentGroupConnectDialog.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
+    <QtUic Include="Qt\optionsDialog.ui">
       <Filter>Qt\UI Files</Filter>
     </QtUic>
   </ItemGroup>

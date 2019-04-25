@@ -40,6 +40,7 @@ public:
     QAction *actionRotate_90_anti_clockwise;
     QAction *actionFlip_horizontal;
     QAction *actionFlip_vertical;
+    QAction *actionPerformance;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
@@ -84,7 +85,7 @@ public:
         actionChangeCamera->setEnabled(false);
         actionOptions = new QAction(MainWindow);
         actionOptions->setObjectName(QStringLiteral("actionOptions"));
-        actionOptions->setEnabled(false);
+        actionOptions->setEnabled(true);
         actionUpdate_image = new QAction(MainWindow);
         actionUpdate_image->setObjectName(QStringLiteral("actionUpdate_image"));
         actionUpdate_image->setCheckable(true);
@@ -101,6 +102,8 @@ public:
         actionFlip_vertical = new QAction(MainWindow);
         actionFlip_vertical->setObjectName(QStringLiteral("actionFlip_vertical"));
         actionFlip_vertical->setCheckable(true);
+        actionPerformance = new QAction(MainWindow);
+        actionPerformance->setObjectName(QStringLiteral("actionPerformance"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -164,6 +167,7 @@ public:
         menuDisplay->addAction(actionFlip_horizontal);
         menuDisplay->addAction(actionFlip_vertical);
         menuSettings->addAction(actionOptions);
+        menuSettings->addAction(actionPerformance);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -178,6 +182,7 @@ public:
         QObject::connect(actionRotate_90_anti_clockwise, SIGNAL(triggered()), MainWindow, SLOT(rotateImageAntiClockwise()));
         QObject::connect(actionFlip_horizontal, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageHorizontal(bool)));
         QObject::connect(actionFlip_vertical, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageVertical(bool)));
+        QObject::connect(actionOptions, SIGNAL(triggered()), MainWindow, SLOT(showOptions()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -198,6 +203,7 @@ public:
         actionRotate_90_anti_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 anti-clockwise", Q_NULLPTR));
         actionFlip_horizontal->setText(QApplication::translate("MainWindow", "Flip horizontal", Q_NULLPTR));
         actionFlip_vertical->setText(QApplication::translate("MainWindow", "Flip vertical", Q_NULLPTR));
+        actionPerformance->setText(QApplication::translate("MainWindow", "Performance", Q_NULLPTR));
         label_cameraImage->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHuib->setTitle(QApplication::translate("MainWindow", "Hub", Q_NULLPTR));

@@ -1,6 +1,7 @@
 #include <QShowEvent>
 #include <QMessageBox>
 #include <QTimer>
+#include <QSettings>
 
 #include "huestream/HueStream.h"
 #include "huestream/effect/effects/AreaEffect.h"
@@ -10,6 +11,7 @@
 #include "Hue/bridgeConnectionHandlerInstance.h"
 #include "Hue/colourArea.h"
 
+#include "optionsDialog.h"
 #include "cameraCapture.h"
 #include "entertainmentGroupConnectDialog.h"
 #include "hubConnectDialog.h"
@@ -24,6 +26,12 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags f) : QMainWindow(parent,
 	_captureTimer->setInterval(10);
 
 	connect(_captureTimer, &QTimer::timeout, this, &MainWindow::captureTimerUpdated);
+
+	_areas = {
+		ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
+		ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
+		ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
+	};
 }
 
 void MainWindow::showEvent(QShowEvent *event)
@@ -38,6 +46,8 @@ void MainWindow::showEvent(QShowEvent *event)
 		});
 
 		timer->start();
+
+		loadSettings();
 	}
 }
 
@@ -113,18 +123,12 @@ void MainWindow::processImage(const QImage &image)
 
 		auto size = transformedImage.size();
 
-		std::vector<ColourArea> areas = {
-			ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
-			ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
-			ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
-		};
-
 		for (auto y = 0; y < size.height(); ++y) {
 			for (auto x = 0; x < size.width(); ++x) {
 				auto pixelColour = transformedImage.pixelColor(QPoint(x, y));
 
-				for (auto area : areas) {
-					if (area.pointIsInside(x, y)) {
+				for (auto area : _areas) {
+					if (area.pointIsInside(x, y, _capture)) {
 						area.getColourGroup()->addColour(pixelColour);
 					}
 				}
@@ -133,7 +137,7 @@ void MainWindow::processImage(const QImage &image)
 
 		_stream->LockMixer();
 
-		for (auto area : areas) {
+		for (auto area : _areas) {
 			auto average = area.getColourGroup()->getAverage();
 			auto colour = average.hueColour();
 			auto effect = std::make_shared<huestream::AreaEffect>();
@@ -142,6 +146,8 @@ void MainWindow::processImage(const QImage &image)
 			effect->SetFixedColor(colour);
 			_stream->AddEffect(effect);
 			effect->Enable();
+
+			area.getColourGroup()->reset();
 		}
 
 		_stream->UnlockMixer();
@@ -165,7 +171,11 @@ void MainWindow::captureTimerUpdated()
 		_captureTimer->stop();
 	}
 	else {
-		auto frameTime = (int)std::round(1000.0 / _targetFramerate);
+		QSettings settings;
+
+		auto targetFramerate = settings.value("camera/framerate", 30).toInt();
+		auto frameTime = (int)std::round(1000.0 / targetFramerate);
+
 		_captureTimer->setInterval(frameTime);
 
 		if (_capture->hasNewImage(_lastRequestTime) && _stream) {
@@ -251,11 +261,23 @@ void MainWindow::rotateImageAntiClockwise()
 void MainWindow::flipImageHorizontal(bool flip)
 {
 	_imageFlippedHorizontally = flip;
+
+	QSettings settings;
+	settings.setValue("image/flippedHorizontally", flip);
 }
 
 void MainWindow::flipImageVertical(bool flip)
 {
 	_imageFlippedVertically = flip;
+
+	QSettings settings;
+	settings.setValue("image/flippedVertically", flip);
+}
+
+void MainWindow::showOptions()
+{
+	auto options = new OptionsDialog(this);
+	options->show();
 }
 
 void MainWindow::rotateImage(int degrees)
@@ -271,4 +293,17 @@ void MainWindow::rotateImage(int degrees)
 	}
 
 	_imageRotation = newRotation;
+
+	QSettings settings;
+	settings.setValue("image/rotation", newRotation);
+}
+
+void MainWindow::loadSettings()
+{
+	QSettings settings;
+
+	rotateImage(settings.value("image/rotation", 0).toInt());
+
+	actionFlip_horizontal->setChecked(settings.value("image/flippedHorizontally", false).toBool());
+	actionFlip_vertical->setChecked(settings.value("image/flippedVertically", false).toBool());
 }
