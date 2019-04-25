@@ -50,7 +50,7 @@ int ColourGroup::getSmoothingLevel()
 
 Colour ColourGroup::getAverage()
 {
-	auto snappingLevel = getSnappingLevel();
+	auto snappingLevel = getSnappingLevel() / (float)100;
 	float averageRed = 0, averageGreen = 0, averageBlue = 0;
 
 	if (_count > 0) {

@@ -8,14 +8,8 @@
     <ClCompile Include="Hue\bridgeConnectionNotifier.cpp">
       <Filter>Hue\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp">
-      <Filter>Qt\Generated</Filter>
-    </ClCompile>
     <ClCompile Include="Qt\cameraImageViewfinder.cpp">
       <Filter>Qt\Source FIles</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp">
-      <Filter>Qt\Generated</Filter>
     </ClCompile>
     <ClCompile Include="Qt\cameraCapture.cpp">
       <Filter>Qt\Source FIles</Filter>
@@ -69,6 +63,12 @@
       <Filter>Qt\Source FIles</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\moc_optionsDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_cameraCapture.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_cameraImageViewfinder.cpp">
       <Filter>Qt\Generated</Filter>
     </ClCompile>
   </ItemGroup>

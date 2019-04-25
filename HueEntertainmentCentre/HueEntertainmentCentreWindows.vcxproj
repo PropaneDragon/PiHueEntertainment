@@ -127,8 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_cameraCapture.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_cameraImageViewfinder.cpp" />
     <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp" />

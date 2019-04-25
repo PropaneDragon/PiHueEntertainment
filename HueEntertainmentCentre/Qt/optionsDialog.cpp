@@ -70,12 +70,13 @@ void OptionsDialog::checkAndSave(QWidget *widget, QString optionName)
 void OptionsDialog::setValue(QWidget *widget, QVariant value)
 {
 	setValue(dynamic_cast<QSpinBox *>(widget), value);
+	setValue(dynamic_cast<QSlider *>(widget), value);
 }
 
 void OptionsDialog::setValue(QSpinBox *spinbox, QVariant value)
 {
-	if (spinBox) {
-		spinBox->setValue(value.toInt());
+	if (spinbox) {
+		spinbox->setValue(value.toInt());
 	}
 }
 
@@ -91,6 +92,7 @@ QVariant OptionsDialog::getValue(QWidget *widget)
 	QVariant variant;
 
 	getValue(dynamic_cast<QSpinBox *>(widget), variant);
+	getValue(dynamic_cast<QSlider *>(widget), variant);
 
 	return variant;
 }
