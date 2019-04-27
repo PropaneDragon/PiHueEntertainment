@@ -71,6 +71,18 @@
     <ClCompile Include="GeneratedFiles\moc_cameraImageViewfinder.cpp">
       <Filter>Qt\Generated</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\monitoring.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\timing.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\performanceItemModel.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\timingsDialog.cpp">
+      <Filter>Qt\Source FIles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -159,6 +171,21 @@
     <ClInclude Include="Qt\entertainmentGroupListModel.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Qt\monitoring.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\timing.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\performanceItemModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_timingsDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\timingsDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Qt\cameraImageViewfinder.h">
@@ -191,6 +218,9 @@
       <Filter>Qt\UI Files</Filter>
     </QtUic>
     <QtUic Include="Qt\optionsDialog.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
+    <QtUic Include="Qt\timingsDialog.ui">
       <Filter>Qt\UI Files</Filter>
     </QtUic>
   </ItemGroup>

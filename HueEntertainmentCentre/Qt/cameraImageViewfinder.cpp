@@ -1,5 +1,6 @@
 #include <QSettings>
 
+#include "monitoring.h"
 #include "cameraImageViewfinder.h"
 
 CameraImageViewfinder::CameraImageViewfinder()
@@ -8,12 +9,16 @@ CameraImageViewfinder::CameraImageViewfinder()
 
 bool CameraImageViewfinder::present(const QVideoFrame &frame)
 {
+	Monitoring::Instance()->begin("Camera viewfinder processing");
+
 	QVideoFrame duplicate(frame);
 	duplicate.map(QAbstractPlanarVideoBuffer::ReadOnly);
 
 	QImage image(duplicate.bits(), duplicate.width(), duplicate.height(), duplicate.bytesPerLine(), QImage::Format::Format_RGB32);
 
 	duplicate.unmap();
+
+	Monitoring::Instance()->end();
 
 	emit imageCaptured(image.scaled(resolution()));
 

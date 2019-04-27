@@ -14,7 +14,7 @@ ColourArea::ColourArea(CameraCapture *capture, std::vector<huestream::Area> area
 
 bool ColourArea::pointIsInside(int x, int y, CameraCapture *capture) const
 {
-	auto resolution = capture->viewfinderResolution();
+	auto resolution = capture->lastViewfinderResolution();
 	auto xPercentage = ((float)x / resolution.width()) * 100;
 	auto yPercentage = ((float)y / resolution.height()) * 100;
 

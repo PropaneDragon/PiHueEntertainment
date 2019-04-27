@@ -148,14 +148,19 @@
     <ClCompile Include="Qt\hubConnectDialog.cpp" />
     <ClCompile Include="Qt\hueBridgeListModel.cpp" />
     <ClCompile Include="Qt\mainWindow.cpp" />
+    <ClCompile Include="Qt\monitoring.cpp" />
     <ClCompile Include="Qt\optionsDialog.cpp" />
+    <ClCompile Include="Qt\performanceItemModel.cpp" />
     <ClCompile Include="Qt\qThreadLambda.cpp" />
     <ClCompile Include="Qt\startWindow.cpp" />
+    <ClCompile Include="Qt\timing.cpp" />
+    <ClCompile Include="Qt\timingsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_hubConnectDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_mainWindow.h" />
+    <ClInclude Include="GeneratedFiles\ui_timingsDialog.h" />
     <ClInclude Include="Hue\abstractBridgeConnectionNotifier.h" />
     <ClInclude Include="Hue\area.h" />
     <ClInclude Include="Hue\bridgeConnectionHandler.h" />
@@ -164,12 +169,16 @@
     <ClInclude Include="Hue\colour.h" />
     <ClInclude Include="Hue\colourArea.h" />
     <ClInclude Include="Hue\colourGroup.h" />
+    <ClInclude Include="Qt\performanceItemModel.h" />
+    <ClInclude Include="Qt\timing.h" />
+    <ClInclude Include="Qt\timingsDialog.h" />
     <QtMoc Include="Qt\hubConnectDialog.h" />
     <QtMoc Include="Qt\entertainmentGroupConnectDialog.h" />
     <ClInclude Include="Qt\entertainmentGroupListModel.h" />
     <ClInclude Include="Qt\hueBridgeListModel.h" />
     <QtMoc Include="Qt\mainWindow.h" />
     <QtMoc Include="Qt\optionsDialog.h" />
+    <ClInclude Include="Qt\monitoring.h" />
     <ClInclude Include="Qt\qThreadLambda.h" />
     <ClInclude Include="Qt\startWindow.h" />
     <QtMoc Include="Qt\cameraCapture.h" />
@@ -180,6 +189,7 @@
     <QtUic Include="Qt\hubConnectDialog.ui" />
     <QtUic Include="Qt\mainWindow.ui" />
     <QtUic Include="Qt\optionsDialog.ui" />
+    <QtUic Include="Qt\timingsDialog.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

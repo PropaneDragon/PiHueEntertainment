@@ -2,6 +2,8 @@
 
 #include <QSettings>
 
+#include "Qt/monitoring.h"
+
 #include "colourGroup.h"
 
 ColourGroup::ColourGroup(const std::vector<Colour>& colours)
@@ -50,6 +52,8 @@ int ColourGroup::getSmoothingLevel()
 
 Colour ColourGroup::getAverage()
 {
+	Monitoring::Instance()->begin("Colour group averaging");
+
 	auto snappingLevel = getSnappingLevel() / (float)100;
 	float averageRed = 0, averageGreen = 0, averageBlue = 0;
 
@@ -74,6 +78,8 @@ Colour ColourGroup::getAverage()
 	for (auto historyColour : _history) {
 		_averageFullColours.push_back(historyColour);
 	}
+
+	Monitoring::Instance()->end();
 
 	return Colour::average(_averageFullColours);
 }

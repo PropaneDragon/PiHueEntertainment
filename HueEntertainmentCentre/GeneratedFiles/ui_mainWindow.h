@@ -183,6 +183,7 @@ public:
         QObject::connect(actionFlip_horizontal, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageHorizontal(bool)));
         QObject::connect(actionFlip_vertical, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageVertical(bool)));
         QObject::connect(actionOptions, SIGNAL(triggered()), MainWindow, SLOT(showOptions()));
+        QObject::connect(actionPerformance, SIGNAL(triggered()), MainWindow, SLOT(showPerformance()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

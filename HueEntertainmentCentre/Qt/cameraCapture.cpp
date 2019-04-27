@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QDateTime>
 
+#include "monitoring.h"
 #include "cameraCapture.h"
 
 CameraCapture::CameraCapture(QObject *parent) : QObject(parent)
@@ -22,15 +23,17 @@ CameraCapture::~CameraCapture()
 
 void CameraCapture::connectToDefaultCamera()
 {
+	Monitoring::Instance()->begin("Camera connection");
+
 	disconnectCamera();
 
 	_safelyDisconnected = false;
 
 	auto availableCameras = QCameraInfo::availableCameras();
 
- 	auto cameraInfo = QCameraInfo::defaultCamera();
+	auto cameraInfo = QCameraInfo::defaultCamera();
 	if (!cameraInfo.isNull() && _viewfinder) {
- 		_camera = new QCamera(cameraInfo);
+		_camera = new QCamera(cameraInfo);
 		_camera->setCaptureMode(QCamera::CaptureMode::CaptureViewfinder);
 		_camera->setViewfinder(_viewfinder);
 		_camera->viewfinderSettings().setResolution(_viewfinder->resolution());
@@ -46,10 +49,14 @@ void CameraCapture::connectToDefaultCamera()
 		_camera->start();
 		_camera->searchAndLock();
 	}
+
+	Monitoring::Instance()->end();
 }
 
 void CameraCapture::disconnectCamera()
 {
+	Monitoring::Instance()->begin("Camera disconnection");
+
 	_safelyDisconnected = true;
 
 	if (_camera) {
@@ -59,6 +66,8 @@ void CameraCapture::disconnectCamera()
 		_camera->deleteLater();
 		_camera = nullptr;
 	}
+
+	Monitoring::Instance()->end();
 }
 
 bool CameraCapture::connectedToCamera() const
@@ -81,6 +90,11 @@ QImage CameraCapture::lastImage() const
 	return _lastImage;
 }
 
+QSize CameraCapture::lastViewfinderResolution() const
+{
+	return _lastSize;
+}
+
 QSize CameraCapture::viewfinderResolution() const
 {
 	if (_viewfinder) {
@@ -94,6 +108,7 @@ void CameraCapture::imageCaptured(QImage image)
 {
 	if (!image.isNull() && image.size() == viewfinderResolution()) {
 		_lastImage = image;
+		_lastSize = viewfinderResolution();
 		_lastImageUpdate = QDateTime::currentDateTime();
 	}
 }

@@ -11,6 +11,8 @@
 #include "Hue/bridgeConnectionHandlerInstance.h"
 #include "Hue/colourArea.h"
 
+#include "timingsDialog.h"
+#include "monitoring.h"
 #include "optionsDialog.h"
 #include "cameraCapture.h"
 #include "entertainmentGroupConnectDialog.h"
@@ -109,7 +111,11 @@ void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
 
 void MainWindow::processImage(const QImage &image)
 {
+	Monitoring::Instance()->begin("Process image");
+
 	if (!image.isNull() && _stream) {
+
+		Monitoring::Instance()->begin("Transform");
 
 		auto transformedImage = image;		
 		auto centre = transformedImage.rect().center();
@@ -121,41 +127,90 @@ void MainWindow::processImage(const QImage &image)
 
 		transformedImage = transformedImage.transformed(rotationMatrix, Qt::TransformationMode::FastTransformation);
 
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Gathering pixels");
+
 		auto size = transformedImage.size();
 
 		for (auto y = 0; y < size.height(); ++y) {
+
+			Monitoring::Instance()->begin("Row " + std::to_string(y));
+
+			auto rowColours = reinterpret_cast<const QRgb *>(image.constScanLine(y));
+
 			for (auto x = 0; x < size.width(); ++x) {
-				auto pixelColour = transformedImage.pixelColor(QPoint(x, y));
+
+				auto rowColour = rowColours[x];
+				auto pixelColour = QColor(qRed(rowColour), qGreen(rowColour), qBlue(rowColour));
 
 				for (auto area : _areas) {
+
 					if (area.pointIsInside(x, y, _capture)) {
 						area.getColourGroup()->addColour(pixelColour);
 					}
 				}
 			}
+
+			Monitoring::Instance()->end();
 		}
 
-		_stream->LockMixer();
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Averaging pixels");
+
+		std::vector<std::shared_ptr<huestream::AreaEffect>> effects;
 
 		for (auto area : _areas) {
 			auto average = area.getColourGroup()->getAverage();
 			auto colour = average.hueColour();
 			auto effect = std::make_shared<huestream::AreaEffect>();
 
+			Monitoring::Instance()->begin("Enabling effect");
+
+			//_stream->LockMixer();
+
 			effect->SetAreas(std::make_shared<huestream::AreaList>(area.getAreas()));
 			effect->SetFixedColor(colour);
 			_stream->AddEffect(effect);
 			effect->Enable();
 
+			//_stream->UnlockMixer();
+
+			Monitoring::Instance()->end();
+
 			area.getColourGroup()->reset();
+
+			effects.push_back(effect);
 		}
 
-		_stream->UnlockMixer();
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Rendering frame");
+
+		_stream->RenderSingleFrame();
+
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Disabling effects");
+
+		//_stream->LockMixer();
+
+		for (auto effect : effects) {
+			effect->Finish();
+		}
+
+		//_stream->UnlockMixer();
+
+		Monitoring::Instance()->end();
 
 		if (_imageAllowedToUpdate) {
+
+			Monitoring::Instance()->begin("Updating image");
+
 			label_cameraImage->setPixmap(QPixmap::fromImage(transformedImage));
+
+			Monitoring::Instance()->end();
 		}
 	}
+
+	Monitoring::Instance()->end();
 }
 
 void MainWindow::captureTimerUpdated()
@@ -278,6 +333,12 @@ void MainWindow::showOptions()
 {
 	auto options = new OptionsDialog(this);
 	options->show();
+}
+
+void MainWindow::showPerformance()
+{
+	auto timings = new TimingsDialog(this);
+	timings->show();
 }
 
 void MainWindow::rotateImage(int degrees)

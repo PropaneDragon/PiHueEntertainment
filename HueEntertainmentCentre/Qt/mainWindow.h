@@ -48,6 +48,7 @@ protected slots:
 	void flipImageHorizontal(bool flip);
 	void flipImageVertical(bool flip);
 	void showOptions();
+	void showPerformance();
 
 protected:
 	void rotateImage(int degrees);
