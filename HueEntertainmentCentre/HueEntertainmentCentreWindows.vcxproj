@@ -172,6 +172,7 @@
     <ClInclude Include="Qt\performanceItemModel.h" />
     <ClInclude Include="Qt\timing.h" />
     <ClInclude Include="Qt\timingsDialog.h" />
+    <ClInclude Include="resource.h" />
     <QtMoc Include="Qt\hubConnectDialog.h" />
     <QtMoc Include="Qt\entertainmentGroupConnectDialog.h" />
     <ClInclude Include="Qt\entertainmentGroupListModel.h" />
@@ -190,6 +191,9 @@
     <QtUic Include="Qt\mainWindow.ui" />
     <QtUic Include="Qt\optionsDialog.ui" />
     <QtUic Include="Qt\timingsDialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HueEntertainmentCentreWindows.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

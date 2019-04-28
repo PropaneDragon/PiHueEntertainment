@@ -186,6 +186,9 @@
     <ClInclude Include="Qt\timingsDialog.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Qt\cameraImageViewfinder.h">
@@ -223,5 +226,8 @@
     <QtUic Include="Qt\timingsDialog.ui">
       <Filter>Qt\UI Files</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HueEntertainmentCentreWindows.rc" />
   </ItemGroup>
 </Project>

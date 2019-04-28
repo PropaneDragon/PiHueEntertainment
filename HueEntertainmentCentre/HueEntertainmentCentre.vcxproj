@@ -93,6 +93,7 @@
     <ClCompile Include="Qt\qThreadLambda.cpp" />
     <ClCompile Include="Qt\startWindow.cpp" />
     <ClCompile Include="Qt\timing.cpp" />
+    <ClCompile Include="Qt\timingsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h" />
@@ -121,6 +122,11 @@
     <ClInclude Include="Qt\qThreadLambda.h" />
     <ClInclude Include="Qt\startWindow.h" />
     <ClInclude Include="Qt\timing.h" />
+    <ClInclude Include="Qt\timingsDialog.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HueEntertainmentCentre.rc" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile />

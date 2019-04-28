@@ -80,6 +80,9 @@
     <ClCompile Include="Qt\performanceItemModel.cpp">
       <Filter>Qt\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\timingsDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -198,5 +201,14 @@
     <ClInclude Include="Qt\performanceItemModel.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Qt\timingsDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Hue\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HueEntertainmentCentre.rc" />
   </ItemGroup>
 </Project>
