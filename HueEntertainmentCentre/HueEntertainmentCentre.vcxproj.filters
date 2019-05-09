@@ -208,7 +208,4 @@
       <Filter>Hue\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="HueEntertainmentCentre.rc" />
-  </ItemGroup>
 </Project>

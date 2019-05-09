@@ -38,13 +38,13 @@
 	<QTDIR>$(DIR_QT)</QTDIR>
 	
 	<DIR_INC_QT>$(DIR_QT)/include</DIR_INC_QT>
-	<DIR_INC_QT_FULL>$(DIR_INC_QT);$(DIR_INC_QT)/QtGui;$(DIR_INC_QT)/QtWidgets;$(DIR_INC_QT)/QtQml;$(DIR_INC_QT)/QtCore;$(DIR_INC_QT)/QtQuickControls2;$(DIR_INC_QT)/QtMultimedia</DIR_INC_QT_FULL>
+	<DIR_INC_QT_FULL>$(DIR_INC_QT);$(DIR_INC_QT)/QtGui;$(DIR_INC_QT)/QtWidgets;$(DIR_INC_QT)/QtQml;$(DIR_INC_QT)/QtCore;$(DIR_INC_QT)/QtQuickControls2;$(DIR_INC_QT)/QtMultimedia;$(DIR_INC_QT)/QtNetwork</DIR_INC_QT_FULL>
 	
 	<DIR_LIB_QT>$(DIR_QT)/lib</DIR_LIB_QT>
 	<DIR_LIB_QT Condition="'$(IS_LINUX)'=='true'">/usr/lib/arm-linux-gnueabihf</DIR_LIB_QT>
 	<DIR_LIB_QT_FULL>$(DIR_LIB_QT)</DIR_LIB_QT_FULL>
 	
-	<LIBS_QT_FULL>$(LIB_PRE)Qt5Widgets$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Gui$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Qml$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Core$(LIB_EXT_INC_D);$(LIB_PRE)Qt5QuickControls2$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Multimedia$(LIB_EXT_INC_D)</LIBS_QT_FULL>
+	<LIBS_QT_FULL>$(LIB_PRE)Qt5Widgets$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Gui$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Qml$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Core$(LIB_EXT_INC_D);$(LIB_PRE)Qt5QuickControls2$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Multimedia$(LIB_EXT_INC_D);$(LIB_PRE)Qt5Network$(LIB_EXT_INC_D)</LIBS_QT_FULL>
 	
     <DIR_EDK>D:/Projects/Git/HEC/EDK</DIR_EDK>
     <DIR_EDK Condition="'$(IS_LINUX)'=='true'">/home/pi/projects/EDK</DIR_EDK>

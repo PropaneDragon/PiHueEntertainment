@@ -125,9 +125,6 @@
     <ClInclude Include="Qt\timingsDialog.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="HueEntertainmentCentre.rc" />
-  </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile />
     <Link />
