@@ -62,6 +62,8 @@ private:
 	bool _imageFlippedVertically = false;
 
 	int _imageRotation = 0;
+	int _maximumBrightness = 100;
+	int _minimumBrightness = 0;
 
 	QDateTime _lastRequestTime = QDateTime::currentDateTime();
 

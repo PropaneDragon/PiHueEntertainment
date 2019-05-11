@@ -16,12 +16,16 @@ public:
 	float getRed() const;
 	float getGreen() const;
 	float getBlue() const;
+	float getBrightness() const;
 
 	void setRed(float red);
 	void setGreen(float green);
 	void setBlue(float blue);
+	void setBrightness(float brightness);
 
 	static Colour average(std::vector<Colour> colours);
+
+	Colour clampBrightness(int minimumPercentage, int maximumPercentage) const;
 
 	QColor qtColour() const;
 	huestream::Color hueColour() const;

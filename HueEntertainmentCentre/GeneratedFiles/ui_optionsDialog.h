@@ -42,13 +42,17 @@ public:
     QSpinBox *spinBox_2;
     QLabel *label_5;
     QSlider *horizontalSlider_2;
+    QLabel *label_6;
+    QSpinBox *spinBox_3;
+    QLabel *label_7;
+    QSpinBox *spinBox_4;
     QDialogButtonBox *buttons_bottom;
 
     void setupUi(QDialog *OptionsDialog)
     {
         if (OptionsDialog->objectName().isEmpty())
             OptionsDialog->setObjectName(QStringLiteral("OptionsDialog"));
-        OptionsDialog->resize(379, 372);
+        OptionsDialog->resize(362, 372);
         verticalLayout = new QVBoxLayout(OptionsDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(-1, -1, -1, 9);
@@ -69,7 +73,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 359, 304));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 342, 304));
         formLayout_2 = new QFormLayout(scrollAreaWidgetContents);
         formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
         formLayout_2->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
@@ -134,6 +138,35 @@ public:
 
         formLayout_2->setWidget(3, QFormLayout::FieldRole, horizontalSlider_2);
 
+        label_6 = new QLabel(scrollAreaWidgetContents);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setWordWrap(true);
+
+        formLayout_2->setWidget(4, QFormLayout::LabelRole, label_6);
+
+        spinBox_3 = new QSpinBox(scrollAreaWidgetContents);
+        spinBox_3->setObjectName(QStringLiteral("spinBox_3"));
+        spinBox_3->setMinimum(0);
+        spinBox_3->setMaximum(100);
+        spinBox_3->setValue(100);
+
+        formLayout_2->setWidget(4, QFormLayout::FieldRole, spinBox_3);
+
+        label_7 = new QLabel(scrollAreaWidgetContents);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setWordWrap(true);
+
+        formLayout_2->setWidget(5, QFormLayout::LabelRole, label_7);
+
+        spinBox_4 = new QSpinBox(scrollAreaWidgetContents);
+        spinBox_4->setObjectName(QStringLiteral("spinBox_4"));
+        spinBox_4->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+        spinBox_4->setMinimum(0);
+        spinBox_4->setMaximum(100);
+        spinBox_4->setValue(0);
+
+        formLayout_2->setWidget(5, QFormLayout::FieldRole, spinBox_4);
+
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea);
@@ -179,6 +212,18 @@ public:
 #endif // QT_NO_TOOLTIP
         label_5->setText(QApplication::translate("OptionsDialog", "Smoothing level", Q_NULLPTR));
         horizontalSlider_2->setProperty("option", QVariant(QApplication::translate("OptionsDialog", "processing/smoothing", Q_NULLPTR)));
+#ifndef QT_NO_TOOLTIP
+        label_6->setToolTip(QApplication::translate("OptionsDialog", "<html><head/><body><p>The processing framerate.</p><p>The higher this framerate, the faster changes will appear on the lights. This drastically increases processing time however.</p><p>Lower framerates will perform better, but will result in a slower response time.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        label_6->setText(QApplication::translate("OptionsDialog", "Maximum brightness", Q_NULLPTR));
+        spinBox_3->setSuffix(QApplication::translate("OptionsDialog", "%", Q_NULLPTR));
+        spinBox_3->setProperty("option", QVariant(QApplication::translate("OptionsDialog", "processing/maxBrightness", Q_NULLPTR)));
+#ifndef QT_NO_TOOLTIP
+        label_7->setToolTip(QApplication::translate("OptionsDialog", "<html><head/><body><p>The processing framerate.</p><p>The higher this framerate, the faster changes will appear on the lights. This drastically increases processing time however.</p><p>Lower framerates will perform better, but will result in a slower response time.</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        label_7->setText(QApplication::translate("OptionsDialog", "Minimum brightness", Q_NULLPTR));
+        spinBox_4->setSuffix(QApplication::translate("OptionsDialog", "%", Q_NULLPTR));
+        spinBox_4->setProperty("option", QVariant(QApplication::translate("OptionsDialog", "processing/minBrightness", Q_NULLPTR)));
     } // retranslateUi
 
 };
