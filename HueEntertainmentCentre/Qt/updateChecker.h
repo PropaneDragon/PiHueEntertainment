@@ -24,8 +24,8 @@ private:
 	bool _isDownloading = false;
 	int _timeoutSeconds = 5;
 
-	const std::string _baseUrl = "http://cnnctr.net/";
-	const std::string _versionUrl = _baseUrl + "download/hec.txt";
+	const std::string _baseUrl = "https://raw.githubusercontent.com/PropaneDragon/PiHueEntertainment/master";
+	const std::string _versionUrl = _baseUrl + "/HueEntertainmentCentre/Qt/updateChecker.cpp";
 
 	QNetworkAccessManager *_accessManager = nullptr;
 };

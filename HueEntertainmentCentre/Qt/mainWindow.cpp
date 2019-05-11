@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags f) : QMainWindow(parent,
 
 	_capture = new CameraCapture(this);
 	_captureTimer = new QTimer(this);
-	_captureTimer->setInterval(10);
+	_captureTimer->setInterval(1);
 
 	connect(_captureTimer, &QTimer::timeout, this, &MainWindow::captureTimerUpdated);
 

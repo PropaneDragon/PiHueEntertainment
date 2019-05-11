@@ -3,8 +3,9 @@
 #include <QNetworkAccessManager>
 #include <QApplication>
 #include <QDateTime>
+#include <QFile>
 
-#include <thread>
+#include <regex>
 
 #include "updateChecker.h"
 
@@ -22,6 +23,7 @@ UpdateChecker* UpdateChecker::Instance()
 UpdateChecker::UpdateChecker()
 {
 	_accessManager = new QNetworkAccessManager();
+	_accessManager->setNetworkAccessible(QNetworkAccessManager::NetworkAccessibility::Accessible);
 }
 
 bool UpdateChecker::isUpdateAvailable()
@@ -45,7 +47,7 @@ std::string UpdateChecker::getVersionFile()
 	_isDownloading = true;
 
 	QNetworkRequest request;
-	request.setUrl(QString::fromStdString(_versionUrl));
+	request.setUrl(QUrl(QString::fromStdString(_versionUrl)));
 
 	auto reply = _accessManager->get(request);
 	if (reply) {
@@ -55,7 +57,7 @@ std::string UpdateChecker::getVersionFile()
 		}
 
 		if (!reply->error()) {
-			response = reply->readAll().toStdString();
+			response = reply->readAll().data();
 		}
 
 		reply->deleteLater();
@@ -70,8 +72,15 @@ std::string UpdateChecker::getVersionFromFile()
 {
 	auto versionFile = getVersionFile();
 	if (!versionFile.empty()) {
-		return versionFile;
-	}
+
+		const std::regex versionFinder("::getVersionFromApplication.*?(?:\\n|\\r|.)*?return *\"(([0-9]\\.){3}[0-9])\"");
+		std::smatch match;
+
+		if (std::regex_search(versionFile, match, versionFinder) && match.size() >= 2) {
+			auto matchedVersion = match[1];
+			return matchedVersion.str();
+		}
+ 	}
 
 	return "";
 }
