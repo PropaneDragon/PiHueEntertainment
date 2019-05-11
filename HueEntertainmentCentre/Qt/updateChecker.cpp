@@ -31,7 +31,7 @@ bool UpdateChecker::isUpdateAvailable()
 	auto availableVersion = getVersionFromFile();
 	auto currentVersion = getVersionFromApplication();
 
-	return !availableVersion.empty() && !currentVersion.empty() && availableVersion != currentVersion;
+	return availableVersion.valid() && currentVersion.valid() && availableVersion > currentVersion;
 }
 
 bool UpdateChecker::isDownloading() const
@@ -68,24 +68,24 @@ std::string UpdateChecker::getVersionFile()
 	return response;
 }
 
-std::string UpdateChecker::getVersionFromFile()
+Version UpdateChecker::getVersionFromFile()
 {
 	auto versionFile = getVersionFile();
 	if (!versionFile.empty()) {
 
-		const std::regex versionFinder("::getVersionFromApplication.*?(?:\\n|\\r|.)*?return *\"(([0-9]\\.){3}[0-9])\"");
+		const std::regex versionFinder("return *Version\\(([0-9]), *([0-9]), *([0-9]), *([0-9])", std::regex_constants::syntax_option_type::extended); // return *\"(([0-9]\\.){3}[0-9])\"
 		std::smatch match;
 
-		if (std::regex_search(versionFile, match, versionFinder) && match.size() >= 2) {
-			auto matchedVersion = match[1];
-			return matchedVersion.str();
+		if (std::regex_search(versionFile, match, versionFinder) && match.size() >= 5) {
+			auto matchedVersion = match[1].str() + "." + match[2].str() + "." + match[3].str() + "." + match[4].str();
+			return Version(matchedVersion);
 		}
  	}
 
-	return "";
+	return Version();
 }
 
-std::string UpdateChecker::getVersionFromApplication() const
+Version UpdateChecker::getVersionFromApplication() const
 {
-	return "0.2.0.0";
+	return Version(0, 3, 0, 0);
 }

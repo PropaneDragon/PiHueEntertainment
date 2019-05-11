@@ -86,6 +86,9 @@
     <ClCompile Include="Qt\updateChecker.cpp">
       <Filter>Qt\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Qt\version.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -193,6 +196,9 @@
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Qt\updateChecker.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\version.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

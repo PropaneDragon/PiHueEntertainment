@@ -156,6 +156,7 @@
     <ClCompile Include="Qt\timing.cpp" />
     <ClCompile Include="Qt\timingsDialog.cpp" />
     <ClCompile Include="Qt\updateChecker.cpp" />
+    <ClCompile Include="Qt\version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Qt\timing.h" />
     <ClInclude Include="Qt\timingsDialog.h" />
     <ClInclude Include="Qt\updateChecker.h" />
+    <ClInclude Include="Qt\version.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="Qt\hubConnectDialog.h" />
     <QtMoc Include="Qt\entertainmentGroupConnectDialog.h" />

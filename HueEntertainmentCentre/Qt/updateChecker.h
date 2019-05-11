@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "version.h"
+
 class QNetworkAccessManager;
 class QNetworkReply;
 class UpdateChecker
@@ -18,8 +20,8 @@ private:
 	static UpdateChecker *_instance;
 
 	std::string getVersionFile();
-	std::string getVersionFromFile();
-	std::string getVersionFromApplication() const;
+	Version getVersionFromFile();
+	Version getVersionFromApplication() const;
 
 	bool _isDownloading = false;
 	int _timeoutSeconds = 5;

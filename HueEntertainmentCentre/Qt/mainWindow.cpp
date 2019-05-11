@@ -244,7 +244,6 @@ void MainWindow::captureTimerUpdated()
 
 			auto image = _capture->lastImage();
 			if (!image.isNull()) {
-
 				processImage(image);
 			}
 		}
