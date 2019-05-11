@@ -154,7 +154,7 @@ public:
 
     void retranslateUi(QDialog *OptionsDialog)
     {
-        OptionsDialog->setWindowTitle(QApplication::translate("OptionsDialog", "Dialog", Q_NULLPTR));
+        OptionsDialog->setWindowTitle(QApplication::translate("OptionsDialog", "Options", Q_NULLPTR));
         label->setText(QApplication::translate("OptionsDialog", "Options", Q_NULLPTR));
         label->setProperty("class", QVariant(QApplication::translate("OptionsDialog", "header", Q_NULLPTR)));
 #ifndef QT_NO_TOOLTIP

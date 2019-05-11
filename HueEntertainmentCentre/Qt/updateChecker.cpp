@@ -39,6 +39,11 @@ bool UpdateChecker::isDownloading() const
 	return _isDownloading;
 }
 
+std::string UpdateChecker::getUpdateUrl() const
+{
+	return _updateUrl;
+}
+
 std::string UpdateChecker::getVersionFile()
 {
 	auto startTime = QDateTime::currentDateTime();
@@ -87,5 +92,5 @@ Version UpdateChecker::getVersionFromFile()
 
 Version UpdateChecker::getVersionFromApplication() const
 {
-	return Version(0, 3, 0, 0);
+	return Version(0, 2, 0, 0);
 }

@@ -46,7 +46,7 @@ public:
 
     void retranslateUi(QDialog *TimingsDialog)
     {
-        TimingsDialog->setWindowTitle(QApplication::translate("TimingsDialog", "Dialog", Q_NULLPTR));
+        TimingsDialog->setWindowTitle(QApplication::translate("TimingsDialog", "Timings", Q_NULLPTR));
     } // retranslateUi
 
 };

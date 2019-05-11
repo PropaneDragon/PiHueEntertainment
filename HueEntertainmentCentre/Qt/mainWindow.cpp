@@ -11,7 +11,7 @@
 #include "Hue/bridgeConnectionHandlerInstance.h"
 #include "Hue/colourArea.h"
 
-#include "updateChecker.h"
+#include "updateDialog.h"
 #include "timingsDialog.h"
 #include "monitoring.h"
 #include "optionsDialog.h"
@@ -40,9 +40,6 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags f) : QMainWindow(parent,
 void MainWindow::showEvent(QShowEvent *event)
 {
 	if (event->type() == QShowEvent::Type::Show) {
-		if (UpdateChecker::Instance()->isUpdateAvailable()) {
-			QMessageBox::information(this, "Update available", "There's a new update available.");
-		}
 
 		auto timer = new QTimer(this);
 		timer->setSingleShot(true);
@@ -55,6 +52,9 @@ void MainWindow::showEvent(QShowEvent *event)
 		timer->start();
 
 		loadSettings();
+
+		auto updateDialog = new UpdateDialog(this);
+		updateDialog->checkForUpdateAndShow();
 	}
 }
 

@@ -41,9 +41,6 @@
     <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp">
       <Filter>Hue\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Qt\qThreadLambda.cpp">
-      <Filter>Hue\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp">
       <Filter>Qt\Generated</Filter>
     </ClCompile>
@@ -88,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="Qt\version.cpp">
       <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\qThreadLambda.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\updateDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_updateDialog.cpp">
+      <Filter>Qt\Generated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +207,9 @@
     <ClInclude Include="Qt\version.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_updateDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Qt\cameraImageViewfinder.h">
@@ -221,6 +230,9 @@
     <QtMoc Include="Qt\optionsDialog.h">
       <Filter>Qt\Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Qt\updateDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Qt\mainWindow.ui">
@@ -236,6 +248,9 @@
       <Filter>Qt\UI Files</Filter>
     </QtUic>
     <QtUic Include="Qt\timingsDialog.ui">
+      <Filter>Qt\UI Files</Filter>
+    </QtUic>
+    <QtUic Include="Qt\updateDialog.ui">
       <Filter>Qt\UI Files</Filter>
     </QtUic>
   </ItemGroup>
