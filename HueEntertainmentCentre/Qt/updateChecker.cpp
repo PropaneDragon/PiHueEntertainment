@@ -78,7 +78,7 @@ Version UpdateChecker::getVersionFromFile()
 	auto versionFile = getVersionFile();
 	if (!versionFile.empty()) {
 
-		const std::regex versionFinder("return *Version\\(([0-9]+), *([0-9]+), *([0-9]+), *([0-9]+)", std::regex_constants::syntax_option_type::extended); // return *\"(([0-9]\\.){3}[0-9])\"
+		const std::regex versionFinder("return *Version\\(([0-9]+), *([0-9]+), *([0-9]+), *([0-9]+)");
 		std::smatch match;
 
 		if (std::regex_search(versionFile, match, versionFinder) && match.size() >= 5) {

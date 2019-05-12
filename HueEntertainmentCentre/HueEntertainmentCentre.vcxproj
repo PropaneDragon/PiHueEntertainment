@@ -131,7 +131,6 @@
     <ClInclude Include="Qt\updateChecker.h" />
     <ClInclude Include="Qt\updateDialog.h" />
     <ClInclude Include="Qt\version.h" />
-    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile />

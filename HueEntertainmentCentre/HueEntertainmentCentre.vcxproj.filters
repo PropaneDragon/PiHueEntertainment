@@ -216,9 +216,6 @@
     <ClInclude Include="Qt\timingsDialog.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource1.h">
-      <Filter>Hue\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Qt\updateChecker.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
