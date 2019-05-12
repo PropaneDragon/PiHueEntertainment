@@ -270,10 +270,6 @@ void MainWindow::connectToCamera()
 		_capture->connectToDefaultCamera();
 		if (_capture->connectedToCamera()) {
 			_captureTimer->start();
-
-			QSettings settings;
-			_maximumBrightness = settings.value("processing/maxBrightness", 100).toInt();
-			_minimumBrightness = settings.value("processing/minBrightness", 0).toInt();
 		}
 		else {
 			auto selectedButton = QMessageBox::critical(this, "Couldn't find a camera", "A compatible camera couldn't be found, or the default camera is unavailable.\n\nPlease ensure a camera is plugged in, or the default camera is not currently in use and try again.", QMessageBox::StandardButton::Retry | QMessageBox::StandardButton::Ok);
@@ -341,6 +337,9 @@ void MainWindow::showOptions()
 {
 	auto options = new OptionsDialog(this);
 	options->show();
+
+	connect(options, &OptionsDialog::accepted, this, &MainWindow::updateSettings);
+	connect(options, &OptionsDialog::applied, this, &MainWindow::updateSettings);
 }
 
 void MainWindow::showPerformance()
@@ -375,4 +374,14 @@ void MainWindow::loadSettings()
 
 	actionFlip_horizontal->setChecked(settings.value("image/flippedHorizontally", false).toBool());
 	actionFlip_vertical->setChecked(settings.value("image/flippedVertically", false).toBool());
+
+	updateSettings();
+}
+
+void MainWindow::updateSettings()
+{
+	QSettings settings;
+
+	_maximumBrightness = settings.value("processing/maxBrightness", 100).toInt();
+	_minimumBrightness = settings.value("processing/minBrightness", 0).toInt();
 }

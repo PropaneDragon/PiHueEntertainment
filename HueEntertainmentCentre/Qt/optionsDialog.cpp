@@ -30,6 +30,8 @@ void OptionsDialog::bottomButtonPressed(QAbstractButton *button)
 {
 	if (button == buttons_bottom->button(QDialogButtonBox::StandardButton::Apply)) {
 		save();
+
+		emit applied();
 	}
 	else if (button == buttons_bottom->button(QDialogButtonBox::StandardButton::Ok)) {
 		save();

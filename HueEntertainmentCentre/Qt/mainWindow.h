@@ -55,6 +55,7 @@ protected:
 
 private:
 	void loadSettings();
+	void updateSettings();
 
 	bool _connected = false;
 	bool _imageAllowedToUpdate = true;

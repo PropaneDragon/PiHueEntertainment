@@ -301,6 +301,7 @@
   </connection>
  </connections>
  <slots>
+  <signal>applied()</signal>
   <slot>bottomButtonPressed(QAbstractButton*)</slot>
  </slots>
 </ui>

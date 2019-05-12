@@ -22,6 +22,9 @@ public:
 	void load();
 	void save();
 
+signals:
+	void applied();
+
 protected slots:
 	void bottomButtonPressed(QAbstractButton *button);
 
