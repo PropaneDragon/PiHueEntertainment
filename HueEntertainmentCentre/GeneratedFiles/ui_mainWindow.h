@@ -59,14 +59,59 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(800, 600);
         MainWindow->setToolTipDuration(-5);
-        MainWindow->setStyleSheet(QLatin1String(".header {\n"
-"	font-size: 12pt;\n"
-"	color: rgba(0,0,0,200);\n"
-"}\n"
-"\n"
-"QWidget {\n"
+        MainWindow->setStyleSheet(QLatin1String("QWidget, QMenuBar::item {\n"
 "	font-family: \"Segoe UI\", sans-serif;\n"
 "	font-size: 9pt;\n"
+"\n"
+"	color: #fff;\n"
+"	background-color: #333;\n"
+"\n"
+"	border-radius: 2px;\n"
+"}\n"
+"\n"
+"QWidget::pressed {\n"
+"	background-color: rgba(255, 255, 255, 10);\n"
+"}\n"
+"\n"
+"QComboBox, QTextBox, QAbstractButton, QSpinBox, QScrollArea, QProgressBar, QListView {\n"
+"	border: 1px solid rgba(255, 255, 255, 40);\n"
+"}\n"
+"\n"
+"QAbstractButton {\n"
+"	padding: 8px;\n"
+"	min-width: 50px;\n"
+"}\n"
+"\n"
+"QAbstractButton::hover, QMenuBar::item:hover, QMenuBar::item:selected, QMenu::item:hover, QMenu::item:selected {\n"
+"	background-color: rgba(255, 255, 255, 30);\n"
+"}\n"
+"\n"
+"QMenuBar, QMenu {\n"
+"	padding: 4px;\n"
+"}\n"
+"\n"
+"QMenuBar::item, QMenu::item {\n"
+"	padding: 8px;\n"
+"	background: transparent;\n"
+"}\n"
+"\n"
+"QMenu::item {\n"
+"	padding-left: 16px;\n"
+"}\n"
+"\n"
+".header {\n"
+"	font-size: 12pt;\n"
+"	color: rgba(255,255,255,200);\n"
+"}\n"
+"\n"
+".subheader {\n"
+"	font-size: 10pt;\n"
+"}\n"
+"\n"
+".footer, QMenuBar, QMen"
+                        "u {\n"
+"	background-color: rgba(255, 255, 255, 20);\n"
+"	border: 1px solid rgba(255, 255, 255, 20);\n"
 "}"));
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QStringLiteral("actionExit"));
@@ -131,7 +176,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 42));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHuib = new QMenu(menubar);

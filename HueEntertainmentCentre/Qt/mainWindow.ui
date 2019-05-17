@@ -17,14 +17,58 @@
    <number>-5</number>
   </property>
   <property name="styleSheet">
-   <string notr="true">.header {
-	font-size: 12pt;
-	color: rgba(0,0,0,200);
-}
-
-QWidget {
+   <string notr="true">QWidget, QMenuBar::item {
 	font-family: &quot;Segoe UI&quot;, sans-serif;
 	font-size: 9pt;
+
+	color: #fff;
+	background-color: #333;
+
+	border-radius: 2px;
+}
+
+QWidget::pressed {
+	background-color: rgba(255, 255, 255, 10);
+}
+
+QComboBox, QTextBox, QAbstractButton, QSpinBox, QScrollArea, QProgressBar, QListView {
+	border: 1px solid rgba(255, 255, 255, 40);
+}
+
+QAbstractButton {
+	padding: 8px;
+	min-width: 50px;
+}
+
+QAbstractButton::hover, QMenuBar::item:hover, QMenuBar::item:selected, QMenu::item:hover, QMenu::item:selected {
+	background-color: rgba(255, 255, 255, 30);
+}
+
+QMenuBar, QMenu {
+	padding: 4px;
+}
+
+QMenuBar::item, QMenu::item {
+	padding: 8px;
+	background: transparent;
+}
+
+QMenu::item {
+	padding-left: 16px;
+}
+
+.header {
+	font-size: 12pt;
+	color: rgba(255,255,255,200);
+}
+
+.subheader {
+	font-size: 10pt;
+}
+
+.footer, QMenuBar, QMenu {
+	background-color: rgba(255, 255, 255, 20);
+	border: 1px solid rgba(255, 255, 255, 20);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -83,7 +127,7 @@ QWidget {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>42</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -84,7 +84,7 @@ public:
         UpdateDialog->setWindowTitle(QApplication::translate("UpdateDialog", "Update available", Q_NULLPTR));
         label->setText(QApplication::translate("UpdateDialog", "Update available", Q_NULLPTR));
         label->setProperty("class", QVariant(QApplication::translate("UpdateDialog", "header", Q_NULLPTR)));
-        label_2->setText(QApplication::translate("UpdateDialog", "There's a new update available to download. Would you like to download the update now?", Q_NULLPTR));
+        label_2->setText(QApplication::translate("UpdateDialog", "There's a new update available to download. Would you like to go to the download page now?", Q_NULLPTR));
     } // retranslateUi
 
 };

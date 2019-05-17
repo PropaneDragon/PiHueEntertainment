@@ -18,8 +18,8 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -27,20 +27,29 @@ class Ui_EntertainmentGroupConnectDialog
 {
 public:
     QVBoxLayout *verticalLayout;
+    QWidget *widget_2;
+    QVBoxLayout *verticalLayout_3;
     QLabel *label;
     QLabel *label_2;
     QListView *list_groups;
-    QSpacerItem *verticalSpacer;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
     QDialogButtonBox *buttons_bottom;
 
     void setupUi(QDialog *EntertainmentGroupConnectDialog)
     {
         if (EntertainmentGroupConnectDialog->objectName().isEmpty())
             EntertainmentGroupConnectDialog->setObjectName(QStringLiteral("EntertainmentGroupConnectDialog"));
-        EntertainmentGroupConnectDialog->resize(400, 305);
+        EntertainmentGroupConnectDialog->resize(605, 433);
+        EntertainmentGroupConnectDialog->setStyleSheet(QStringLiteral(""));
         verticalLayout = new QVBoxLayout(EntertainmentGroupConnectDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label = new QLabel(EntertainmentGroupConnectDialog);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        widget_2 = new QWidget(EntertainmentGroupConnectDialog);
+        widget_2->setObjectName(QStringLiteral("widget_2"));
+        verticalLayout_3 = new QVBoxLayout(widget_2);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        label = new QLabel(widget_2);
         label->setObjectName(QStringLiteral("label"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
@@ -49,30 +58,36 @@ public:
         label->setSizePolicy(sizePolicy);
         label->setWordWrap(true);
 
-        verticalLayout->addWidget(label);
+        verticalLayout_3->addWidget(label);
 
-        label_2 = new QLabel(EntertainmentGroupConnectDialog);
+        label_2 = new QLabel(widget_2);
         label_2->setObjectName(QStringLiteral("label_2"));
         sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
         label_2->setSizePolicy(sizePolicy);
         label_2->setWordWrap(true);
 
-        verticalLayout->addWidget(label_2);
+        verticalLayout_3->addWidget(label_2);
 
-        list_groups = new QListView(EntertainmentGroupConnectDialog);
+        list_groups = new QListView(widget_2);
         list_groups->setObjectName(QStringLiteral("list_groups"));
 
-        verticalLayout->addWidget(list_groups);
+        verticalLayout_3->addWidget(list_groups);
 
-        verticalSpacer = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer);
+        verticalLayout->addWidget(widget_2);
 
-        buttons_bottom = new QDialogButtonBox(EntertainmentGroupConnectDialog);
+        widget = new QWidget(EntertainmentGroupConnectDialog);
+        widget->setObjectName(QStringLiteral("widget"));
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        buttons_bottom = new QDialogButtonBox(widget);
         buttons_bottom->setObjectName(QStringLiteral("buttons_bottom"));
         buttons_bottom->setStandardButtons(QDialogButtonBox::Cancel);
 
-        verticalLayout->addWidget(buttons_bottom);
+        verticalLayout_2->addWidget(buttons_bottom);
+
+
+        verticalLayout->addWidget(widget);
 
 
         retranslateUi(EntertainmentGroupConnectDialog);
@@ -87,7 +102,8 @@ public:
         label->setText(QApplication::translate("EntertainmentGroupConnectDialog", "Select an entertainment area", Q_NULLPTR));
         label->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "header", Q_NULLPTR)));
         label_2->setText(QApplication::translate("EntertainmentGroupConnectDialog", "It appears you have multiple entertainment areas. Please select the area to control below.", Q_NULLPTR));
-        label_2->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "footer", Q_NULLPTR)));
+        label_2->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "subheader", Q_NULLPTR)));
+        widget->setProperty("class", QVariant(QApplication::translate("EntertainmentGroupConnectDialog", "footer", Q_NULLPTR)));
     } // retranslateUi
 
 };

@@ -247,6 +247,10 @@ void MainWindow::captureTimerUpdated()
 				processImage(image);
 			}
 		}
+		else if (_lastRequestTime.addSecs(5) < QDateTime::currentDateTime()) {
+			_captureTimer->stop();
+			QMessageBox::critical(this, "Camera not responding", "It appears that the camera has stopped responding as there have been no updates recently.\n\nPlease ensure the camera is still working, or insert the camera into a different port and try again.");
+		}
 	}
 }
 
@@ -269,6 +273,8 @@ void MainWindow::connectToCamera()
 		retry = false;
 		_capture->connectToDefaultCamera();
 		if (_capture->connectedToCamera()) {
+
+			_lastRequestTime = QDateTime::currentDateTime();
 			_captureTimer->start();
 		}
 		else {

@@ -45,7 +45,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>There's a new update available to download. Would you like to download the update now?</string>
+         <string>There's a new update available to download. Would you like to go to the download page now?</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
