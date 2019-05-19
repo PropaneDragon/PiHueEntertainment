@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Connecting to hub</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label">
@@ -48,7 +51,7 @@
       <bool>true</bool>
      </property>
      <property name="class" stdset="0">
-      <string>footer</string>
+      <string>subheader</string>
      </property>
     </widget>
    </item>

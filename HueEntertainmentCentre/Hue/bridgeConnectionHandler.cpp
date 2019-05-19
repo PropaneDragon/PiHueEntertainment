@@ -3,6 +3,8 @@
 BridgeConnectionHandler::BridgeConnectionHandler(const std::string &applicationName)
 {
 	_config = std::shared_ptr<huestream::Config>(new huestream::Config(applicationName, "Hardware", huestream::PersistenceEncryptionKey("92C5FFFA-7B90-40A6-B6C4-6F04FFA7466E")));
+	_config->GetAppSettings()->SetUseRenderThread(false);
+
 	_stream = std::shared_ptr<huestream::HueStream>(new huestream::HueStream(_config));
 }
 

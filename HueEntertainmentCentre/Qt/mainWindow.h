@@ -47,22 +47,29 @@ protected slots:
 	void rotateImageAntiClockwise();
 	void flipImageHorizontal(bool flip);
 	void flipImageVertical(bool flip);
+	void showOptions();
+	void showPerformance();
 
 protected:
 	void rotateImage(int degrees);
 
 private:
+	void loadSettings();
+	void updateSettings();
+
 	bool _connected = false;
 	bool _imageAllowedToUpdate = true;
 	bool _imageFlippedHorizontally = false;
 	bool _imageFlippedVertically = false;
 
-	int _targetFramerate = 10;
 	int _imageRotation = 0;
+	int _maximumBrightness = 100;
+	int _minimumBrightness = 0;
 
 	QDateTime _lastRequestTime = QDateTime::currentDateTime();
 
 	std::shared_ptr<huestream::IHueStream> _stream = nullptr;
+	std::vector<ColourArea> _areas;
 
 	CameraCapture *_capture = nullptr;
 	QTimer *_captureTimer = nullptr;

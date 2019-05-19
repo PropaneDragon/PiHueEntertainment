@@ -11,12 +11,6 @@
     <ClCompile Include="Qt\cameraImageViewfinder.cpp">
       <Filter>Qt\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp">
-      <Filter>Qt\Generated</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp">
-      <Filter>Qt\Generated</Filter>
-    </ClCompile>
     <ClCompile Include="Qt\cameraCapture.cpp">
       <Filter>Qt\Source Files</Filter>
     </ClCompile>
@@ -65,6 +59,42 @@
     <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp">
       <Filter>Qt\Generated</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_cameraCapture.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_cameraImageViewfinder.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_optionsDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\optionsDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\timing.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\monitoring.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\performanceItemModel.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\timingsDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\updateChecker.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\version.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Qt\updateDialog.cpp">
+      <Filter>Qt\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_updateDialog.cpp">
+      <Filter>Qt\Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hue">
@@ -91,6 +121,17 @@
     <Filter Include="Qt\Header Files">
       <UniqueIdentifier>{79e24305-3b93-4a9c-b9e2-2c304f1d2cc3}</UniqueIdentifier>
       <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{26b9e068-0198-4412-b59f-d4ad2e04d020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Header Files">
+      <UniqueIdentifier>{2bf56aaf-a1fb-4cee-ada2-ad7f1434e4b4}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Application\Source Files">
+      <UniqueIdentifier>{ea1c90a1-f058-48ab-b5c3-e4e56013f756}</UniqueIdentifier>
+      <Extensions>cpp;cc</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +193,39 @@
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Qt\entertainmentGroupListModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_optionsDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\optionsDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\timing.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\monitoring.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_timingsDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\performanceItemModel.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\timingsDialog.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\updateChecker.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\version.h">
+      <Filter>Qt\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_updateDialog.h">
+      <Filter>Qt\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Qt\updateDialog.h">
       <Filter>Qt\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

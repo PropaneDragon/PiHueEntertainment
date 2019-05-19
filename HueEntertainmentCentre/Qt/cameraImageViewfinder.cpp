@@ -1,12 +1,16 @@
+#include <QSettings>
+
+#include "monitoring.h"
 #include "cameraImageViewfinder.h"
 
-CameraImageViewfinder::CameraImageViewfinder(QSize scale)
+CameraImageViewfinder::CameraImageViewfinder()
 {
-	_scale = scale;
 }
 
 bool CameraImageViewfinder::present(const QVideoFrame &frame)
 {
+	Monitoring::Instance()->begin("Camera viewfinder processing");
+
 	QVideoFrame duplicate(frame);
 	duplicate.map(QAbstractPlanarVideoBuffer::ReadOnly);
 
@@ -14,17 +18,26 @@ bool CameraImageViewfinder::present(const QVideoFrame &frame)
 
 	duplicate.unmap();
 
-	emit imageCaptured(image.scaled(_scale));
+	Monitoring::Instance()->end();
+
+	emit imageCaptured(image.scaled(resolution()));
 
 	return true;
+}
+
+QSize CameraImageViewfinder::resolution() const
+{
+	QSettings settings;
+
+	auto resolution = settings.value("camera/resolution", 10).toInt();
+	return QSize(resolution, resolution);
 }
 
 QList<QVideoFrame::PixelFormat> CameraImageViewfinder::supportedPixelFormats(QAbstractVideoBuffer::HandleType handleType) const
 {
 	QList<QVideoFrame::PixelFormat> list;
 
-	if (handleType == QAbstractVideoBuffer::NoHandle)
-	{
+	if (handleType == QAbstractVideoBuffer::NoHandle) {
 		list.append(QVideoFrame::Format_RGB32);
 	}
 

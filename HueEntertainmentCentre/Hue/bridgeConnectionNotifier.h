@@ -25,9 +25,6 @@ public:
 	std::shared_ptr<huestream::Bridge> getHueBridge() const;
 	std::shared_ptr<huestream::IHueStream> getHueStream() const;
 
-protected:
-	void startGroup(std::shared_ptr<huestream::Group> group, std::shared_ptr<huestream::IHueStream> stream);
-
 private:
 	int _requestedGroupIndex = 0;
 	int _targetFramerate = 10;

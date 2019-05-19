@@ -30,6 +30,18 @@ float Colour::getBlue() const
 	return _blue;
 }
 
+float Colour::getBrightness() const
+{
+	if (getRed() > getGreen() && getRed() > getBlue()) {
+		return getRed();
+	}
+	else if (getGreen() > getRed() && getGreen() > getBlue()) {
+		return getGreen();
+	}
+
+	return getBlue();
+}
+
 void Colour::setRed(float red)
 {
 	_red = clamp(red);
@@ -43,6 +55,55 @@ void Colour::setGreen(float green)
 void Colour::setBlue(float blue)
 {
 	_blue = clamp(blue);
+}
+
+void Colour::setBrightness(float brightness)
+{
+	auto brightestColour = getBrightness();
+	auto difference = brightness - brightestColour;
+
+	setRed(getRed() + difference);
+	setGreen(getGreen() + difference);
+	setBlue(getBlue() + difference);
+}
+
+Colour Colour::average(std::vector<Colour> colours)
+{
+	auto total = colours.size();
+	float totalR = 0, totalG = 0, totalB = 0;
+
+	for (auto colour : colours) {
+		totalR += colour.getRed();
+		totalG += colour.getGreen();
+		totalB += colour.getBlue();
+	}
+
+	if (total > 0) {
+		totalR /= total;
+		totalG /= total;
+		totalB /= total;
+	}
+
+	return Colour(totalR, totalG, totalB);
+}
+
+Colour Colour::clampBrightness(int minimumPercentage, int maximumPercentage) const
+{
+	minimumPercentage = minimumPercentage < 0 ? 0 : (minimumPercentage > maximumPercentage ? maximumPercentage : minimumPercentage);
+	maximumPercentage = maximumPercentage > 100 ? 100 : (maximumPercentage < minimumPercentage ? minimumPercentage : maximumPercentage);
+
+	auto maximum = maximumPercentage / 100.0;
+	auto minimum = minimumPercentage / 100.0;
+	auto newColour = Colour(getRed(), getGreen(), getBlue());
+
+	if (newColour.getBrightness() > maximum) {
+		newColour.setBrightness(maximum);
+	}
+	else if (newColour.getBrightness() < minimum) {
+		newColour.setBrightness(minimum);
+	}
+
+	return newColour;
 }
 
 QColor Colour::qtColour() const

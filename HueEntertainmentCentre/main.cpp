@@ -12,7 +12,10 @@ int main(int argc, char *argv[])
 {
 	auto result = 0;
 
+	QApplication::setOrganizationName("ColonelPanic");
+	QApplication::setApplicationName("PiHueEntertainment");
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
 	QApplication application(argc, argv);
 
 	auto startWindow = std::shared_ptr<MainWindow>(new MainWindow());

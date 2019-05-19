@@ -1,6 +1,7 @@
 #include <QShowEvent>
 #include <QMessageBox>
 #include <QTimer>
+#include <QSettings>
 
 #include "huestream/HueStream.h"
 #include "huestream/effect/effects/AreaEffect.h"
@@ -10,6 +11,10 @@
 #include "Hue/bridgeConnectionHandlerInstance.h"
 #include "Hue/colourArea.h"
 
+#include "updateDialog.h"
+#include "timingsDialog.h"
+#include "monitoring.h"
+#include "optionsDialog.h"
 #include "cameraCapture.h"
 #include "entertainmentGroupConnectDialog.h"
 #include "hubConnectDialog.h"
@@ -21,14 +26,21 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags f) : QMainWindow(parent,
 
 	_capture = new CameraCapture(this);
 	_captureTimer = new QTimer(this);
-	_captureTimer->setInterval(10);
+	_captureTimer->setInterval(1);
 
 	connect(_captureTimer, &QTimer::timeout, this, &MainWindow::captureTimerUpdated);
+
+	_areas = {
+		ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
+		ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
+		ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
+	};
 }
 
 void MainWindow::showEvent(QShowEvent *event)
 {
 	if (event->type() == QShowEvent::Type::Show) {
+
 		auto timer = new QTimer(this);
 		timer->setSingleShot(true);
 		timer->setInterval(1000);
@@ -38,6 +50,11 @@ void MainWindow::showEvent(QShowEvent *event)
 		});
 
 		timer->start();
+
+		loadSettings();
+
+		auto updateDialog = new UpdateDialog(this);
+		updateDialog->checkForUpdateAndShow();
 	}
 }
 
@@ -99,7 +116,11 @@ void MainWindow::connectToGroup(std::shared_ptr<huestream::Group> group)
 
 void MainWindow::processImage(const QImage &image)
 {
+	Monitoring::Instance()->begin("Process image");
+
 	if (!image.isNull() && _stream) {
+
+		Monitoring::Instance()->begin("Transform");
 
 		auto transformedImage = image;		
 		auto centre = transformedImage.rect().center();
@@ -111,45 +132,90 @@ void MainWindow::processImage(const QImage &image)
 
 		transformedImage = transformedImage.transformed(rotationMatrix, Qt::TransformationMode::FastTransformation);
 
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Gathering pixels");
+
 		auto size = transformedImage.size();
 
-		std::vector<ColourArea> areas = {
-			ColourArea(_capture, { huestream::Area::Left, huestream::Area::FrontLeft, huestream::Area::BackLeft, huestream::Area::CenterLeft }, Area(0, 0, 25, 0)),
-			ColourArea(_capture, { huestream::Area::Right, huestream::Area::FrontRight, huestream::Area::BackRight, huestream::Area::CenterRight }, Area(0, 75, 0, 0)),
-			ColourArea(_capture, { huestream::Area::Center, huestream::Area::FrontCenter, huestream::Area::BackCenter }, Area(10, 15, 15, 10)),
-		};
-
 		for (auto y = 0; y < size.height(); ++y) {
-			for (auto x = 0; x < size.width(); ++x) {
-				auto pixelColour = transformedImage.pixelColor(QPoint(x, y));
 
-				for (auto area : areas) {
-					if (area.pointIsInside(x, y)) {
+			Monitoring::Instance()->begin("Row " + std::to_string(y));
+
+			auto rowColours = reinterpret_cast<const QRgb *>(image.constScanLine(y));
+
+			for (auto x = 0; x < size.width(); ++x) {
+
+				auto rowColour = rowColours[x];
+				auto pixelColour = QColor(qRed(rowColour), qGreen(rowColour), qBlue(rowColour));
+
+				for (auto area : _areas) {
+
+					if (area.pointIsInside(x, y, _capture)) {
 						area.getColourGroup()->addColour(pixelColour);
 					}
 				}
 			}
+
+			Monitoring::Instance()->end();
 		}
 
-		_stream->LockMixer();
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Averaging pixels");
 
-		for (auto area : areas) {
+		std::vector<std::shared_ptr<huestream::AreaEffect>> effects;
+
+		for (auto area : _areas) {
 			auto average = area.getColourGroup()->getAverage();
-			auto colour = average.hueColour();
+			auto colour = average.clampBrightness(_minimumBrightness, _maximumBrightness).hueColour();
 			auto effect = std::make_shared<huestream::AreaEffect>();
+
+			Monitoring::Instance()->begin("Enabling effect");
+
+			//_stream->LockMixer();
 
 			effect->SetAreas(std::make_shared<huestream::AreaList>(area.getAreas()));
 			effect->SetFixedColor(colour);
 			_stream->AddEffect(effect);
 			effect->Enable();
+
+			//_stream->UnlockMixer();
+
+			Monitoring::Instance()->end();
+
+			area.getColourGroup()->reset();
+
+			effects.push_back(effect);
 		}
 
-		_stream->UnlockMixer();
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Rendering frame");
+
+		_stream->RenderSingleFrame();
+
+		Monitoring::Instance()->end();
+		Monitoring::Instance()->begin("Disabling effects");
+
+		//_stream->LockMixer();
+
+		for (auto effect : effects) {
+			effect->Finish();
+		}
+
+		//_stream->UnlockMixer();
+
+		Monitoring::Instance()->end();
 
 		if (_imageAllowedToUpdate) {
+
+			Monitoring::Instance()->begin("Updating image");
+
 			label_cameraImage->setPixmap(QPixmap::fromImage(transformedImage));
+
+			Monitoring::Instance()->end();
 		}
 	}
+
+	Monitoring::Instance()->end();
 }
 
 void MainWindow::captureTimerUpdated()
@@ -165,7 +231,11 @@ void MainWindow::captureTimerUpdated()
 		_captureTimer->stop();
 	}
 	else {
-		auto frameTime = (int)std::round(1000.0 / _targetFramerate);
+		QSettings settings;
+
+		auto targetFramerate = settings.value("camera/framerate", 30).toInt();
+		auto frameTime = (int)std::round(1000.0 / targetFramerate);
+
 		_captureTimer->setInterval(frameTime);
 
 		if (_capture->hasNewImage(_lastRequestTime) && _stream) {
@@ -174,9 +244,12 @@ void MainWindow::captureTimerUpdated()
 
 			auto image = _capture->lastImage();
 			if (!image.isNull()) {
-
 				processImage(image);
 			}
+		}
+		else if (_lastRequestTime.addSecs(5) < QDateTime::currentDateTime()) {
+			_captureTimer->stop();
+			QMessageBox::critical(this, "Camera not responding", "It appears that the camera has stopped responding as there have been no updates recently.\n\nPlease ensure the camera is still working, or insert the camera into a different port and try again.");
 		}
 	}
 }
@@ -200,6 +273,8 @@ void MainWindow::connectToCamera()
 		retry = false;
 		_capture->connectToDefaultCamera();
 		if (_capture->connectedToCamera()) {
+
+			_lastRequestTime = QDateTime::currentDateTime();
 			_captureTimer->start();
 		}
 		else {
@@ -251,11 +326,32 @@ void MainWindow::rotateImageAntiClockwise()
 void MainWindow::flipImageHorizontal(bool flip)
 {
 	_imageFlippedHorizontally = flip;
+
+	QSettings settings;
+	settings.setValue("image/flippedHorizontally", flip);
 }
 
 void MainWindow::flipImageVertical(bool flip)
 {
 	_imageFlippedVertically = flip;
+
+	QSettings settings;
+	settings.setValue("image/flippedVertically", flip);
+}
+
+void MainWindow::showOptions()
+{
+	auto options = new OptionsDialog(this);
+	options->show();
+
+	connect(options, &OptionsDialog::accepted, this, &MainWindow::updateSettings);
+	connect(options, &OptionsDialog::applied, this, &MainWindow::updateSettings);
+}
+
+void MainWindow::showPerformance()
+{
+	auto timings = new TimingsDialog(this);
+	timings->show();
 }
 
 void MainWindow::rotateImage(int degrees)
@@ -271,4 +367,27 @@ void MainWindow::rotateImage(int degrees)
 	}
 
 	_imageRotation = newRotation;
+
+	QSettings settings;
+	settings.setValue("image/rotation", newRotation);
+}
+
+void MainWindow::loadSettings()
+{
+	QSettings settings;
+
+	rotateImage(settings.value("image/rotation", 0).toInt());
+
+	actionFlip_horizontal->setChecked(settings.value("image/flippedHorizontally", false).toBool());
+	actionFlip_vertical->setChecked(settings.value("image/flippedVertically", false).toBool());
+
+	updateSettings();
+}
+
+void MainWindow::updateSettings()
+{
+	QSettings settings;
+
+	_maximumBrightness = settings.value("processing/maxBrightness", 100).toInt();
+	_minimumBrightness = settings.value("processing/minBrightness", 0).toInt();
 }

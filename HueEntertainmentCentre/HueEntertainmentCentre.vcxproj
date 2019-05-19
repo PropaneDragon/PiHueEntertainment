@@ -66,11 +66,13 @@
     <MultiProcNumber>4</MultiProcNumber>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraCapture.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_cameraImageViewfinder.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_cameraCapture.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_cameraImageViewfinder.cpp" />
     <ClCompile Include="GeneratedFiles\moc_entertainmentGroupConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_hubConnectDialog.cpp" />
     <ClCompile Include="GeneratedFiles\moc_mainWindow.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_optionsDialog.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_updateDialog.cpp" />
     <ClCompile Include="Hue\area.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandler.cpp" />
     <ClCompile Include="Hue\bridgeConnectionHandlerInstance.cpp" />
@@ -86,13 +88,24 @@
     <ClCompile Include="Qt\hubConnectDialog.cpp" />
     <ClCompile Include="Qt\hueBridgeListModel.cpp" />
     <ClCompile Include="Qt\mainWindow.cpp" />
+    <ClCompile Include="Qt\monitoring.cpp" />
+    <ClCompile Include="Qt\optionsDialog.cpp" />
+    <ClCompile Include="Qt\performanceItemModel.cpp" />
     <ClCompile Include="Qt\qThreadLambda.cpp" />
     <ClCompile Include="Qt\startWindow.cpp" />
+    <ClCompile Include="Qt\timing.cpp" />
+    <ClCompile Include="Qt\timingsDialog.cpp" />
+    <ClCompile Include="Qt\updateChecker.cpp" />
+    <ClCompile Include="Qt\updateDialog.cpp" />
+    <ClCompile Include="Qt\version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_entertainmentGroupConnectDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_hubConnectDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_mainWindow.h" />
+    <ClInclude Include="GeneratedFiles\ui_optionsDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_timingsDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_updateDialog.h" />
     <ClInclude Include="Hue\abstractBridgeConnectionNotifier.h" />
     <ClInclude Include="Hue\area.h" />
     <ClInclude Include="Hue\bridgeConnectionHandler.h" />
@@ -108,8 +121,16 @@
     <ClInclude Include="Qt\hubConnectDialog.h" />
     <ClInclude Include="Qt\hueBridgeListModel.h" />
     <ClInclude Include="Qt\mainWindow.h" />
+    <ClInclude Include="Qt\monitoring.h" />
+    <ClInclude Include="Qt\optionsDialog.h" />
+    <ClInclude Include="Qt\performanceItemModel.h" />
     <ClInclude Include="Qt\qThreadLambda.h" />
     <ClInclude Include="Qt\startWindow.h" />
+    <ClInclude Include="Qt\timing.h" />
+    <ClInclude Include="Qt\timingsDialog.h" />
+    <ClInclude Include="Qt\updateChecker.h" />
+    <ClInclude Include="Qt\updateDialog.h" />
+    <ClInclude Include="Qt\version.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile />

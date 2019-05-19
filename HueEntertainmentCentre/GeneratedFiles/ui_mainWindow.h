@@ -40,6 +40,7 @@ public:
     QAction *actionRotate_90_anti_clockwise;
     QAction *actionFlip_horizontal;
     QAction *actionFlip_vertical;
+    QAction *actionPerformance;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
@@ -58,14 +59,59 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(800, 600);
         MainWindow->setToolTipDuration(-5);
-        MainWindow->setStyleSheet(QLatin1String(".header {\n"
-"	font-size: 12pt;\n"
-"	color: rgba(0,0,0,200);\n"
-"}\n"
-"\n"
-"QWidget {\n"
+        MainWindow->setStyleSheet(QLatin1String("QWidget, QMenuBar::item {\n"
 "	font-family: \"Segoe UI\", sans-serif;\n"
 "	font-size: 9pt;\n"
+"\n"
+"	color: #fff;\n"
+"	background-color: #333;\n"
+"\n"
+"	border-radius: 2px;\n"
+"}\n"
+"\n"
+"QWidget::pressed {\n"
+"	background-color: rgba(255, 255, 255, 10);\n"
+"}\n"
+"\n"
+"QComboBox, QTextBox, QAbstractButton, QSpinBox, QScrollArea, QProgressBar, QListView {\n"
+"	border: 1px solid rgba(255, 255, 255, 40);\n"
+"}\n"
+"\n"
+"QAbstractButton {\n"
+"	padding: 8px;\n"
+"	min-width: 50px;\n"
+"}\n"
+"\n"
+"QAbstractButton::hover, QMenuBar::item:hover, QMenuBar::item:selected, QMenu::item:hover, QMenu::item:selected {\n"
+"	background-color: rgba(255, 255, 255, 30);\n"
+"}\n"
+"\n"
+"QMenuBar, QMenu {\n"
+"	padding: 4px;\n"
+"}\n"
+"\n"
+"QMenuBar::item, QMenu::item {\n"
+"	padding: 8px;\n"
+"	background: transparent;\n"
+"}\n"
+"\n"
+"QMenu::item {\n"
+"	padding-left: 16px;\n"
+"}\n"
+"\n"
+".header {\n"
+"	font-size: 12pt;\n"
+"	color: rgba(255,255,255,200);\n"
+"}\n"
+"\n"
+".subheader {\n"
+"	font-size: 10pt;\n"
+"}\n"
+"\n"
+".footer, QMenuBar, QMen"
+                        "u {\n"
+"	background-color: rgba(255, 255, 255, 20);\n"
+"	border: 1px solid rgba(255, 255, 255, 20);\n"
 "}"));
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QStringLiteral("actionExit"));
@@ -84,7 +130,7 @@ public:
         actionChangeCamera->setEnabled(false);
         actionOptions = new QAction(MainWindow);
         actionOptions->setObjectName(QStringLiteral("actionOptions"));
-        actionOptions->setEnabled(false);
+        actionOptions->setEnabled(true);
         actionUpdate_image = new QAction(MainWindow);
         actionUpdate_image->setObjectName(QStringLiteral("actionUpdate_image"));
         actionUpdate_image->setCheckable(true);
@@ -101,6 +147,8 @@ public:
         actionFlip_vertical = new QAction(MainWindow);
         actionFlip_vertical->setObjectName(QStringLiteral("actionFlip_vertical"));
         actionFlip_vertical->setCheckable(true);
+        actionPerformance = new QAction(MainWindow);
+        actionPerformance->setObjectName(QStringLiteral("actionPerformance"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -128,7 +176,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 42));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHuib = new QMenu(menubar);
@@ -164,6 +212,7 @@ public:
         menuDisplay->addAction(actionFlip_horizontal);
         menuDisplay->addAction(actionFlip_vertical);
         menuSettings->addAction(actionOptions);
+        menuSettings->addAction(actionPerformance);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -178,6 +227,8 @@ public:
         QObject::connect(actionRotate_90_anti_clockwise, SIGNAL(triggered()), MainWindow, SLOT(rotateImageAntiClockwise()));
         QObject::connect(actionFlip_horizontal, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageHorizontal(bool)));
         QObject::connect(actionFlip_vertical, SIGNAL(toggled(bool)), MainWindow, SLOT(flipImageVertical(bool)));
+        QObject::connect(actionOptions, SIGNAL(triggered()), MainWindow, SLOT(showOptions()));
+        QObject::connect(actionPerformance, SIGNAL(triggered()), MainWindow, SLOT(showPerformance()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -198,6 +249,7 @@ public:
         actionRotate_90_anti_clockwise->setText(QApplication::translate("MainWindow", "Rotate 90\302\260 anti-clockwise", Q_NULLPTR));
         actionFlip_horizontal->setText(QApplication::translate("MainWindow", "Flip horizontal", Q_NULLPTR));
         actionFlip_vertical->setText(QApplication::translate("MainWindow", "Flip vertical", Q_NULLPTR));
+        actionPerformance->setText(QApplication::translate("MainWindow", "Performance", Q_NULLPTR));
         label_cameraImage->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHuib->setTitle(QApplication::translate("MainWindow", "Hub", Q_NULLPTR));

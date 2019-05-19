@@ -1,5 +1,9 @@
 #include <numeric>
 
+#include <QSettings>
+
+#include "Qt/monitoring.h"
+
 #include "colourGroup.h"
 
 ColourGroup::ColourGroup(const std::vector<Colour>& colours)
@@ -7,6 +11,22 @@ ColourGroup::ColourGroup(const std::vector<Colour>& colours)
 	for (auto colour : colours) {
 		addColour(colour);
 	}
+}
+
+void ColourGroup::reset()
+{
+	auto historyCount = getSmoothingLevel();
+
+	while (historyCount >= 0 && _history.size() > historyCount) {
+		_history.pop_back();
+	}
+
+	_history.push_front(_lastAverage);
+
+	_red = 0;
+	_green = 0;
+	_blue = 0;
+	_count = 0;
 }
 
 void ColourGroup::addColour(const Colour &colour)
@@ -18,8 +38,23 @@ void ColourGroup::addColour(const Colour &colour)
 	++_count;
 }
 
+int ColourGroup::getSnappingLevel()
+{
+	QSettings settings;	
+	return settings.value("processing/snapping", 0).toInt();
+}
+
+int ColourGroup::getSmoothingLevel()
+{
+	QSettings settings;
+	return settings.value("processing/smoothing", 0).toInt();
+}
+
 Colour ColourGroup::getAverage()
 {
+	Monitoring::Instance()->begin("Colour group averaging");
+
+	auto snappingLevel = getSnappingLevel() / (float)100;
 	float averageRed = 0, averageGreen = 0, averageBlue = 0;
 
 	if (_count > 0) {
@@ -34,11 +69,17 @@ Colour ColourGroup::getAverage()
 	auto differenceG = std::abs(average.getGreen() - _lastAverage.getGreen());
 	auto differenceB = std::abs(average.getBlue() - _lastAverage.getBlue());
 
-	if (differenceR > _smoothingLevel || differenceG > _smoothingLevel || differenceB > _smoothingLevel) {
-
+	if (differenceR > snappingLevel || differenceG > snappingLevel || differenceB > snappingLevel) {
 		_lastAverage = average;
-		return average;
 	}
 
-	return _lastAverage;
+	std::vector<Colour> _averageFullColours{ _lastAverage };
+
+	for (auto historyColour : _history) {
+		_averageFullColours.push_back(historyColour);
+	}
+
+	Monitoring::Instance()->end();
+
+	return Colour::average(_averageFullColours);
 }
