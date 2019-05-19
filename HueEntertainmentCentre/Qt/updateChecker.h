@@ -29,7 +29,7 @@ private:
 	int _timeoutSeconds = 5;
 
 	const std::string _updateUrl = "https://github.com/PropaneDragon/PiHueEntertainment/releases";
-	const std::string _baseUrl = "https://raw.githubusercontent.com/PropaneDragon/PiHueEntertainment/master";
+	const std::string _baseUrl = "https://raw.githubusercontent.com/PropaneDragon/PiHueEntertainment/release";
 	const std::string _versionUrl = _baseUrl + "/HueEntertainmentCentre/Qt/updateChecker.cpp";
 
 	QNetworkAccessManager *_accessManager = nullptr;
